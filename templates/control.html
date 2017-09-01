@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 控制界面 {% endblock %}
+{% block AdditionScript %} {% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+{% block MainContents %}
+    <h1>这是主控面板！！！ </h1>
+{% endblock %}
+
+
+
+{% block script %}
+    <script>
+        $("#DHTcontrol").addClass("active");
+    </script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 测试页 {% endblock %}
+{% block AdditionScript %} 
+    <script src="/statics/js/echarts/echarts.min.js"></script>
+    <script src="/statics/js/echarts/echarts-liquidfill.js"></script>
+{% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+{% block MainContents %}
+    <h1>这是测试页！！！ </h1>
+
+    <div class="row">
+        <div class="col-md-8" id="echart-test" style="width: 500px;height:400px;"></div>
+        <div class="col-md-4" id="echart-water" style="width: 500px;height:400px;"></div>
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+    <script>
+        $("#DHTtest").addClass("active");
+    </script>
+
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echart-test'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+        var myWater = echarts.init(document.getElementById('echart-water'));
+        var optionWater = {
+            series: [{
+                type: 'liquidFill',
+                data: [0.5, 0.4, 0.3],
+                color: ['red', '#0f0', 'rgb(0, 0, 255)'],
+                itemStyle: {
+                    normal: {
+                        opacity: 0.6
+                    },
+                    emphasis: {
+                        opacity: 0.9
+                    }
+                }
+            }]
+         };
+        myWater.setOption(optionWater);
+
+
+    </script>
+
+{% endblock %}

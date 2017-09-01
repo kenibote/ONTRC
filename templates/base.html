@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="/ONTRC-LAB/WangNing">
+    <link rel="icon" href="/statics/images/favicon.ico">
+
+    <title> {% block PageTitle %} {% endblock %} </title>
+
+    <!-- 以下引入基本的css库 -->
+    <link href="/statics/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 以下引入基本的js库 -->
+    <script src="/statics/js/jquery-3.2.1.min.js"></script>
+    <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 此处按需引入额外的js库，包括echart以及主题 -->
+    {% block AdditionScript %} {% endblock %}
+
+    <!-- 全局样式 -->
+    <style>
+        #daohangtiao{ margin-top: 25px}
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 导航条 -->
+        <nav class="navbar navbar-default" id="daohangtiao">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                          data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% block titleURL %}{% endblock %}">
+                        {% block title %}{% endblock %}
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li id="DHThomepage"><a href="/index/">主页</a></li>
+                        <li id="DHTcontrol"><a href="/control/">控制</a></li>
+                        <li id="DHTlogging"><a href="/log/">日志</a></li>
+                        <li id="DHTsetting"><a href="/setting/">设置</a></li>
+                        <li id="DHThelp"><a href="/help/">帮助</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                        <button type="submit" class="btn btn-default btn-success">搜索</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="DHTtest"><a href="/test/">Test</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <!-- 主内容 -->
+        {% block popinfo %}
+            <div id="Topinfo1"></div>
+            <div id="Topinfo2"></div>
+        {% endblock %}
+
+        <div class="jumbotron">
+            {% block MainContents %}
+                <p>This is a jumbotron. </p>
+            {% endblock %}
+        </div>
+
+        <!-- 页脚 -->
+        <div class="container">
+        <hr>
+            {% block page_content %}
+                <p class="text-center">
+                    <strong>版权所有@光网络研究中心</strong> <br>
+                    <strong>地址：苏州大学-电子信息学院-404室</strong> <br>
+                    <strong>2017-09</strong>
+                </p>
+            {% endblock %}
+        </div>
+
+    </div> <!-- /container -->
+
+    <!-- JS代码 -->
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

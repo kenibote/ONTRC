@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 日志 {% endblock %}
+{% block AdditionScript %} {% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+
+{% block script %}
+    <script>
+        $("#DHTlogging").addClass("active");
+    </script>
+{% endblock %}

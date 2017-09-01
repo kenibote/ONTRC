@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 帮助 {% endblock %}
+{% block AdditionScript %} {% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+{% block MainContents %}
+    <div class="panel panel-success">
+        <div class="panel-heading">帮助</div>
+        <div class="panel-body">
+            网站工程师
+
+            <blockquote>
+                <p>王宁<br>
+                13862143304</p>
+                <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $("#DHThelp").addClass("active");
+    </script>
+{% endblock %}

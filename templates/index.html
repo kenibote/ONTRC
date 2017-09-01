@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 数据中心控制系统主页 {% endblock %}
+{% block AdditionScript %}{% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+{% block MainContents %}
+    <h1>这是主页！！！ </h1>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $("#DHThomepage").addClass("active");
+    </script>
+{% endblock %}

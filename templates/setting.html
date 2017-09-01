@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} 设置 {% endblock %}
+{% block AdditionScript %} {% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+{% block MainContents %}
+    <h1>这是设置页！！！ </h1>
+    <button id="testbutton" type="button" class="btn btn-primary">弹出警告信息</button>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $("#DHTsetting").addClass("active");
+
+
+        var infostr_head = "<div class=\"alert alert-warning alert-dismissible\" role=\"alert\">\n" +
+            "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+            "<span aria-hidden=\"true\">&times;</span></button>\n";
+        var infostr_end="</div>";
+
+        $("#testbutton").click(function () {
+            var info_body = "<strong>Warning!</strong> This message come from WangNing.\n";
+
+            $("#Topinfo1").append(infostr_head+info_body+infostr_end);
+        });
+    </script>
+{% endblock %}
