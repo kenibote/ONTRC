@@ -52,8 +52,21 @@
                         <li id="DHThomepage"><a href="/index/">主页</a></li>
                         <li id="DHTcontrol"><a href="/control/">控制</a></li>
                         <li id="DHTlogging"><a href="/log/">日志</a></li>
-                        <li id="DHTsetting"><a href="/setting/">设置</a></li>
-                        <li id="DHThelp"><a href="/help/">帮助</a></li>
+                        <!--<li id="DHTsetting"><a href="/setting/">设置</a></li> -->
+                        <li id="DHTsetting" class="dropdown">
+                            <a href="/setting/" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false"> 设置 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/setting/">设备摘要</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">核心设置</li>
+                                <li><a href="/odlsetting/">ODL控制器</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">设备设置</li>
+                                <li><a href="/404/">OEO</a></li>
+                                <li><a href="/404/">WSS</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <div class="form-group">
@@ -63,6 +76,7 @@
                     </form>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="DHTtest"><a href="/test/">Test</a></li>
+                        <li id="DHThelp"><a href="/help/">帮助</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

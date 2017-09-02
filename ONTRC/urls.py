@@ -23,9 +23,17 @@ urlpatterns = [
 
     url(r'^test/',views.test),
 
+    url(r'^404',views.pagenotfound),
     url(r'^index',views.index),
     url(r'^control', views.control),
     url(r'^log',views.logging),
     url(r'^setting', views.setting),
     url(r'^help', views.help),
+    url(r'^odlsetting',views.odlsetting),
+
+    # ODL setting 部分
+    url(r'^ajax_odlsetting_stop',views.ajax_odlsetting_stop),
+    url(r'^ajax_odlsetting_start',views.ajax_odlsetting_start),
+    url(r'^ajax_odlsetting_change',views.ajax_odlsetting_change),
+    url(r'^ajax_odlsetting_getlog',views.ajax_odlsetting_getlog),
 ]
