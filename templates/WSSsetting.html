@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+<!-- 页面标题 -->
+{% block PageTitle %} WSS设置 {% endblock %}
+{% block AdditionScript %}
+    <script src="/statics/js/topInfo.js"></script>
+{% endblock %}
+
+{% block titleURL%} /index/ {% endblock %}
+{% block title %}
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+    ONTRC
+{% endblock %}
+
+
+{% block MainContents %}
+    <h3>WSS设备设置面板 <span class="label label-default btn-sm">4 Devices</span> </h3>
+    <hr>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        //提示信息消失时间
+        var hidetime = 6000;
+        var logtime = 1500;
+        //设置标题导航栏为选中状态
+        $("#DHTsetting").addClass("active");
+
+
+    </script>
+{% endblock %}

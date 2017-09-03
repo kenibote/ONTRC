@@ -16,24 +16,38 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from Show import views
+from Show import views,viewODLsetting,viewOEOsetting,viewWSSsetting
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^test/',views.test),
 
+    # 主页面
     url(r'^404',views.pagenotfound),
     url(r'^index',views.index),
     url(r'^control', views.control),
     url(r'^log',views.logging),
     url(r'^setting', views.setting),
     url(r'^help', views.help),
-    url(r'^odlsetting',views.odlsetting),
 
     # ODL setting 部分
-    url(r'^ajax_odlsetting_stop',views.ajax_odlsetting_stop),
-    url(r'^ajax_odlsetting_start',views.ajax_odlsetting_start),
-    url(r'^ajax_odlsetting_change',views.ajax_odlsetting_change),
-    url(r'^ajax_odlsetting_getlog',views.ajax_odlsetting_getlog),
+    url(r'^odlsetting',viewODLsetting.odlsetting),
+    url(r'^ajax_odlsetting_stop',viewODLsetting.ajax_odlsetting_stop),
+    url(r'^ajax_odlsetting_start',viewODLsetting.ajax_odlsetting_start),
+    url(r'^ajax_odlsetting_change',viewODLsetting.ajax_odlsetting_change),
+    url(r'^ajax_odlsetting_getlog',viewODLsetting.ajax_odlsetting_getlog),
+
+    # OEO setting 部分
+    url(r'^oeosetting',viewOEOsetting.oeosetting),
+    url(r'^ajax_oeosetting_stop',viewOEOsetting.ajax_oeosetting_stop),
+    url(r'^ajax_oeosetting_start',viewOEOsetting.ajax_oeosetting_start),
+    url(r'^ajax_oeosetting_change',viewOEOsetting.ajax_oeosetting_change),
+    url(r'^ajax_oeosetting_getlog',viewOEOsetting.ajax_oeosetting_getlog),
+
+    # WSS setting 部分
+    url(r'^wsssetting',viewWSSsetting.wsssetting),
+
+    # 对于空连接重定向至主页
+    url(r'',views.NoneMainPage),
 ]

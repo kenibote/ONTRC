@@ -14,7 +14,7 @@
 
 
 {% block MainContents %}
-    <h3>ODL控制器设置信息 </h3>
+    <h3>ODL控制器设置面板 </h3>
     <hr>
     <div class="panel panel-danger">
         <div class="panel-heading">当前状态信息</div>
@@ -117,7 +117,6 @@
         });
 
 
-
         $("#stopserver").click(function () {
             $("#stopserver").attr("disabled","disabled");
             $("#stopserver").text("Runing...");
@@ -128,6 +127,9 @@
                 data: {"None":"None"},
                 dataType: "json",
                 success:function (data) {
+                    $("#stopserver").removeAttr("disabled");
+                    $("#stopserver").text("停止服务");
+
                     if(data["result"]=="success"){
                         ShowTopInfo1("alert-success","<strong>Success!</strong> 服务暂停成功！");
                         //当点击停止服务的时候，自己按钮变暗；其它所有按钮启用
@@ -140,9 +142,6 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 服务暂停失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-
-                    $("#stopserver").removeAttr("disabled");
-                    $("#stopserver").text("停止服务");
                 }
             }); // end ajax
 
@@ -150,7 +149,6 @@
             //获取log日志
             setTimeout(getlog,logtime);
         }); // end stop server
-
 
 
         $("#startserver").click(function () {
@@ -163,6 +161,9 @@
                 data: {"None":"None"},
                 dataType: "json",
                 success:function (data) {
+                    $("#startserver").removeAttr("disabled");
+                    $("#startserver").text("启动服务");
+
                     if(data["result"]=="success"){
                         ShowTopInfo1("alert-success","<strong>Success!</strong> 服务启动成功！");
                         $("#stopserver").removeAttr("disabled").addClass("btn-danger");
@@ -174,16 +175,12 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 服务启动失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-
-                    $("#startserver").removeAttr("disabled");
-                    $("#startserver").text("启动服务");
                 }
             }); //end ajax
 
             //获取log日志
             setTimeout(getlog,logtime);
         });// end start server
-
 
 
         $("#comformchange").click(function () {
@@ -203,15 +200,15 @@
                     "odlport":odlportin,"odlkey":odlkeyin},
                 dataType: "json",
                 success:function (data) {
+                    $("#comformchange").removeAttr("disabled");
+                    $("#comformchange").text("确认修改");
+
                     if(data["result"]=="success"){
                         ShowTopInfo1("alert-success","<strong>Success!</strong> 写入数据库成功！");
                     }else{
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 请检查你的数据！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-
-                    $("#comformchange").removeAttr("disabled");
-                    $("#comformchange").text("确认修改");
                 }
             }); // end ajax
 
@@ -219,6 +216,7 @@
             setTimeout(getlog,logtime);
         }); // end change information
 
+        //获取日志信息
         function getlog() {
             $.ajax({
                 url: "/ajax_odlsetting_getlog/",

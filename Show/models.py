@@ -21,3 +21,25 @@ class odlsetlog(models.Model):
     loginfo = models.CharField(max_length=100)
 
 
+
+class oeoinfo(models.Model):
+    oeoname = models.CharField(max_length=30)
+    oeoip = models.CharField(max_length=20)
+    oeoport = models.CharField(max_length=10)
+    oeokey = models.CharField(max_length=20)
+    oeoright = models.CharField(max_length=10)
+    oeostate = models.CharField(max_length=10)
+    oeotype = models.CharField(max_length=10)
+    def __str__(self):
+        return ' Name:'+self.oeoname+\
+               ' IP:'+self.oeoip+':'+self.oeoport+\
+               ' Code:'+self.oeokey+\
+               ' Type:'+self.oeotype+ \
+               ' Right:'+self.oeoright+\
+               ' State:'+self.oeostate
+
+
+class oeosetlog(models.Model):
+    logtime = models.DateField()
+    logtype = models.CharField(max_length=20)
+    loginfo = models.CharField(max_length=100)

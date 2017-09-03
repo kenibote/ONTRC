@@ -12,8 +12,114 @@
 
 
 {% block MainContents %}
-    <h1>这是设置页！！！ </h1>
-    <button id="testbutton" type="button" class="btn btn-primary">弹出警告信息</button>
+    <h2>设备摘要 <span class="label label-default">7 Devices</span></h2>
+    <hr>
+
+    <div class="list-group">
+        <a href="/odlsetting/" class="list-group-item">
+            <h4 class="list-group-item-heading">ODL控制器设备</h4>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading"><strong>ODL#0</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> 429Lab <br>
+                            <strong>状态：</strong> {{ odlinfo.odlstate }} <br>
+                            <strong>IP：</strong> {{ odlinfo.odlip }}:{{ odlinfo.odlport }} <br>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </a>
+
+        <a href="/oeosetting/" class="list-group-item">
+            <h4 class="list-group-item-heading">OEO设备</h4>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading"><strong>OEO#1</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> A <br>
+                            <strong>状态：</strong> {{ oeoinfo1.oeostate }} <br>
+                            <strong>代理：</strong> {{ oeoinfo1.oeoip }}:{{ oeoinfo1.oeoport }} <br>
+                            <strong>型号：</strong> {{ oeoinfo1.oeotype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading"><strong>OEO#2</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> B <br>
+                            <strong>状态：</strong> {{ oeoinfo2.oeostate }} <br>
+                            <strong>代理：</strong> {{ oeoinfo2.oeoip }}:{{ oeoinfo2.oeoport }} <br>
+                            <strong>型号：</strong> {{ oeoinfo2.oeotype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </a>
+
+        <a href="/wsssetting/" class="list-group-item">
+            <h4 class="list-group-item-heading">WSS设备</h4>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><strong>WSS#1</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> 429Lab <br>
+                            <strong>状态：</strong> {{ wssinfo1.wssstate }} <br>
+                            <strong>代理：</strong> {{ wssinfo1.wssip }}:{{ odlinfo1.wssport }} <br>
+                            <strong>型号：</strong> {{ wssinfo1.wsstype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><strong>WSS#2</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> 429Lab <br>
+                            <strong>状态：</strong> {{ wssinfo2.wssstate }} <br>
+                            <strong>代理：</strong> {{ wssinfo2.wssip }}:{{ odlinfo2.wssport }} <br>
+                            <strong>型号：</strong> {{ wssinfo2.wsstype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><strong>WSS#3</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> 429Lab <br>
+                            <strong>状态：</strong> {{ wssinfo3.wssstate }} <br>
+                            <strong>代理：</strong> {{ wssinfo3.wssip }}:{{ odlinfo3.wssport }} <br>
+                            <strong>型号：</strong> {{ wssinfo3.wsstype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-success">
+                        <div class="panel-heading"><strong>WSS#4</strong></div>
+                        <div class="panel-body">
+                            <strong>地址：</strong> 429Lab <br>
+                            <strong>状态：</strong> {{ wssinfo4.wssstate }} <br>
+                            <strong>代理：</strong> {{ wssinfo4.wssip }}:{{ odlinfo4.wssport }} <br>
+                            <strong>型号：</strong> {{ wssinfo4.wsstype }} <br>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </a>
+    </div>
 
 {% endblock %}
 
@@ -21,16 +127,5 @@
     <script>
         $("#DHTsetting").addClass("active");
 
-
-        var infostr_head = "<div class=\"alert alert-warning alert-dismissible\" role=\"alert\">\n" +
-            "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
-            "<span aria-hidden=\"true\">&times;</span></button>\n";
-        var infostr_end="</div>";
-
-        $("#testbutton").click(function () {
-            var info_body = "<strong>Warning!</strong> This message come from WangNing.\n";
-
-            $("#Topinfo1").append(infostr_head+info_body+infostr_end);
-        });
     </script>
 {% endblock %}
