@@ -2,7 +2,10 @@
 
 <!-- 页面标题 -->
 {% block PageTitle %} 设备摘要 {% endblock %}
-{% block AdditionScript %} {% endblock %}
+{% block AdditionScript %}
+    <script src="/statics/js/echarts/echarts.min.js"></script>
+    <script src="/statics/js/echarts/echarts-liquidfill.js"></script>
+{% endblock %}
 
 {% block titleURL%} /index/ {% endblock %}
 {% block title %}
@@ -13,7 +16,19 @@
 
 {% block MainContents %}
     <h2>设备摘要 <span class="label label-default">7 Devices</span></h2>
-    <hr>
+    <hr style="position: relative">
+
+    <div id="echart-water-oeo"
+         style="width: 250px;height:250px; position: absolute;
+         margin-top: -40px;margin-left: 500px; z-index: 1001"></div>
+    <div style="width: 250px;height:250px; position: absolute;
+         margin-top: 165px;margin-left: 590px; z-index: 1001"><strong>OEO使用率</strong></div>
+
+    <div id="echart-water-wss"
+         style="width: 250px;height:250px; position: absolute;
+         margin-top: -40px;margin-left: 700px; z-index: 1001"></div>
+    <div style="width: 250px;height:250px; position: absolute;
+         margin-top: 165px;margin-left: 790px; z-index: 1001"><strong>WSS使用率</strong></div>
 
     <div class="list-group">
         <a href="/odlsetting/" class="list-group-item">
@@ -127,5 +142,41 @@
     <script>
         $("#DHTsetting").addClass("active");
 
+        var myWaterOEO = echarts.init(document.getElementById('echart-water-oeo'));
+        var optionWaterOEO = {
+            series: [{
+                type: 'liquidFill',
+                data: [0.5, 0.4, 0.3],
+                color: ['red', '#0f0', 'rgb(0, 0, 255)'],
+                itemStyle: {
+                    normal: {
+                        opacity: 0.6
+                    },
+                    emphasis: {
+                        opacity: 0.9
+                    }
+                }
+            }]
+         };
+        myWaterOEO.setOption(optionWaterOEO);
+
+
+        var myWaterWSS = echarts.init(document.getElementById('echart-water-wss'));
+        var optionWaterWSS = {
+            series: [{
+                type: 'liquidFill',
+                data: [0.4, 0.3, 0.2],
+                color: ['red', '#0f0', 'rgb(0, 0, 255)'],
+                itemStyle: {
+                    normal: {
+                        opacity: 0.6
+                    },
+                    emphasis: {
+                        opacity: 0.9
+                    }
+                }
+            }]
+         };
+        myWaterWSS.setOption(optionWaterWSS);
     </script>
 {% endblock %}

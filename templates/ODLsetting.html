@@ -112,14 +112,17 @@
                 $(".odlinput").removeAttr("disabled");
             }
 
+            var top2 = "<div id=\"p2\" class=\"mdl-progress mdl-js-progress mdl-progress__indeterminate\"></div>";
+            $("#Topinfo2").append(top2);
             //获取log日志
-            setTimeout(getlog,500);
+            setTimeout(getlog,100);
         });
 
 
         $("#stopserver").click(function () {
             $("#stopserver").attr("disabled","disabled");
             $("#stopserver").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             $.ajax({
                 url: "/ajax_odlsetting_stop/",
@@ -142,6 +145,7 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 服务暂停失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); // end ajax
 
@@ -154,6 +158,7 @@
         $("#startserver").click(function () {
             $("#startserver").attr("disabled","disabled");
             $("#startserver").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             $.ajax({
                 url: "/ajax_odlsetting_start/",
@@ -175,6 +180,7 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 服务启动失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); //end ajax
 
@@ -186,6 +192,7 @@
         $("#comformchange").click(function () {
             $("#comformchange").attr("disabled","disabled");
             $("#comformchange").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             //此时应该检查出入并更新数据库
             var odlnamein = $("#odlname").val();
@@ -209,6 +216,7 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 请检查你的数据！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); // end ajax
 

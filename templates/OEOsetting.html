@@ -33,15 +33,15 @@
                     <div class="row">
                         <div class="col-md-1">
                             <button type="button" class="btn btn-danger"
-                                    id="stopserver1">停止服务</button>
+                                    id="stopserver1" value="1">停止服务</button>
                         </div>
                         <div class="col-md-1">
                             <button type="button" class="btn"
-                                    id="startserver1" disabled>启动服务</button>
+                                    id="startserver1" value="1" disabled>启动服务</button>
                         </div>
                         <div class="col-md-1">
                             <button type="button" class="btn"
-                                    id="comformchange1" disabled>确认修改</button>
+                                    id="comformchange1" value="1" disabled>确认修改</button>
                         </div>
                     </div> <!-- end row-->
                     <hr>
@@ -101,15 +101,15 @@
                     <div class="row">
                         <div class="col-md-1">
                             <button type="button" class="btn btn-danger"
-                                    id="stopserver2">停止服务</button>
+                                    id="stopserver2" value="2">停止服务</button>
                         </div>
                         <div class="col-md-1">
                             <button type="button" class="btn"
-                                    id="startserver2" disabled>启动服务</button>
+                                    id="startserver2" value="2" disabled>启动服务</button>
                         </div>
                         <div class="col-md-1">
                             <button type="button" class="btn"
-                                    id="comformchange2" disabled>确认修改</button>
+                                    id="comformchange2" value="2" disabled>确认修改</button>
                         </div>
                     </div> <!-- end row-->
                     <hr>
@@ -206,35 +206,38 @@
             }
 
             //获取log日志
-            setTimeout(getlog,500);
+            setTimeout(getlog,100);
         });
 
+        $("#stopserver1,#stopserver2").click(function () {
+            var id = $(this).val();
 
-        $("#stopserver1").click(function () {
-            $("#stopserver1").attr("disabled","disabled");
-            $("#stopserver1").text("Runing...");
+            $("#stopserver"+id).attr("disabled","disabled");
+            $("#stopserver"+id).text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             $.ajax({
                 url: "/ajax_oeosetting_stop/",
                 type: "POST",
-                data: {"Device":"1"},
+                data: {"Device":id},
                 dataType: "json",
                 success:function (data) {
-                    $("#stopserver1").removeAttr("disabled");
-                    $("#stopserver1").text("停止服务");
+                    $("#stopserver"+id).removeAttr("disabled");
+                    $("#stopserver"+id).text("停止服务");
 
                     if(data["result"]=="success"){
-                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#1 服务暂停成功！");
+                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#"+id+" 服务暂停成功！");
                         //当点击停止服务的时候，自己按钮变暗；其它所有按钮启用
-                        $("#stopserver1").attr("disabled","disabled").removeClass("btn-danger");
-                        $("#startserver1").removeAttr("disabled").addClass("btn-success");
-                        $("#comformchange1").removeAttr("disabled").addClass("btn-warning");
-                        $(".oeoinput1").removeAttr("disabled");
+                        $("#stopserver"+id).attr("disabled","disabled").removeClass("btn-danger");
+                        $("#startserver"+id).removeAttr("disabled").addClass("btn-success");
+                        $("#comformchange"+id).removeAttr("disabled").addClass("btn-warning");
+                        $(".oeoinput"+id).removeAttr("disabled");
 
                     }else{
-                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#1 服务暂停失败！");
+                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#"+id+" 服务暂停失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); // end ajax
 
@@ -242,62 +245,35 @@
             setTimeout(getlog,logtime);
         }); // end stop server
 
-        $("#stopserver2").click(function () {
-            $("#stopserver2").attr("disabled","disabled");
-            $("#stopserver2").text("Runing...");
 
-            $.ajax({
-                url: "/ajax_oeosetting_stop/",
-                type: "POST",
-                data: {"Device":"2"},
-                dataType: "json",
-                success:function (data) {
-                    $("#stopserver2").removeAttr("disabled");
-                    $("#stopserver2").text("停止服务");
+        $("#startserver1,#startserver2").click(function () {
+            var id = $(this).val();
 
-                    if(data["result"]=="success"){
-                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#2 服务暂停成功！");
-                        //当点击停止服务的时候，自己按钮变暗；其它所有按钮启用
-                        $("#stopserver2").attr("disabled","disabled").removeClass("btn-danger");
-                        $("#startserver2").removeAttr("disabled").addClass("btn-success");
-                        $("#comformchange2").removeAttr("disabled").addClass("btn-warning");
-                        $(".oeoinput2").removeAttr("disabled");
-
-                    }else{
-                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#2 服务暂停失败！");
-                    }
-                    setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-                }
-            }); // end ajax
-
-            //获取log日志
-            setTimeout(getlog,logtime);
-        }); // end stop server
-
-        $("#startserver1").click(function () {
-            $("#startserver1").attr("disabled","disabled");
-            $("#startserver1").text("Runing...");
+            $("#startserver"+id).attr("disabled","disabled");
+            $("#startserver"+id).text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             $.ajax({
                 url: "/ajax_oeosetting_start/",
                 type: "POST",
-                data: {"Device":"1"},
+                data: {"Device":id},
                 dataType: "json",
                 success:function (data) {
-                    $("#startserver1").removeAttr("disabled");
-                    $("#startserver1").text("启动服务");
+                    $("#startserver"+id).removeAttr("disabled");
+                    $("#startserver"+id).text("启动服务");
 
                     if(data["result"]=="success"){
-                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#1 服务启动成功！");
-                        $("#stopserver1").removeAttr("disabled").addClass("btn-danger");
-                        $("#startserver1").attr("disabled","disabled").removeClass("btn-success");
-                        $("#comformchange1").attr("disabled","disabled").removeClass("btn-warning");
-                        $(".oeoinput1").attr("disabled","disabled");
+                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#"+id+" 服务启动成功！");
+                        $("#stopserver"+id).removeAttr("disabled").addClass("btn-danger");
+                        $("#startserver"+id).attr("disabled","disabled").removeClass("btn-success");
+                        $("#comformchange"+id).attr("disabled","disabled").removeClass("btn-warning");
+                        $(".oeoinput"+id).attr("disabled","disabled");
 
                     }else{
-                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#1 服务启动失败！");
+                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#"+id+" 服务启动失败！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); //end ajax
 
@@ -305,57 +281,30 @@
             setTimeout(getlog,logtime);
         });// end start server
 
-        $("#startserver2").click(function () {
-            $("#startserver2").attr("disabled","disabled");
-            $("#startserver2").text("Runing...");
 
-            $.ajax({
-                url: "/ajax_oeosetting_start/",
-                type: "POST",
-                data: {"Device":"2"},
-                dataType: "json",
-                success:function (data) {
-                    $("#startserver2").removeAttr("disabled");
-                    $("#startserver2").text("启动服务");
+        $("#comformchange1,#comformchange2").click(function () {
+            var id = $(this).val();
 
-                    if(data["result"]=="success"){
-                        ShowTopInfo1("alert-success","<strong>Success!</strong> OEO#2 服务启动成功！");
-                        $("#stopserver2").removeAttr("disabled").addClass("btn-danger");
-                        $("#startserver2").attr("disabled","disabled").removeClass("btn-success");
-                        $("#comformchange2").attr("disabled","disabled").removeClass("btn-warning");
-                        $(".oeoinput2").attr("disabled","disabled");
-
-                    }else{
-                        ShowTopInfo1("alert-danger","<strong>Error!</strong> OEO#2 服务启动失败！");
-                    }
-                    setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-                }
-            }); //end ajax
-
-            //获取log日志
-            setTimeout(getlog,logtime);
-        });// end start server
-
-        $("#comformchange1").click(function () {
-            $("#comformchange1").attr("disabled","disabled");
-            $("#comformchange1").text("Runing...");
+            $("#comformchange"+id).attr("disabled","disabled");
+            $("#comformchange"+id).text("Runing...");
+            $("#Topinfo2").removeClass("hide");
 
             //此时应该检查出入并更新数据库
-            var oeonamein = $("#oeoname1").val();
-            var oeoipin = $("#oeoip1").val();
-            var oeoportin = $("#oeoport1").val();
-            var oeokeyin = $("#oeokey1").val();
+            var oeonamein = $("#oeoname"+id).val();
+            var oeoipin = $("#oeoip"+id).val();
+            var oeoportin = $("#oeoport"+id).val();
+            var oeokeyin = $("#oeokey"+id).val();
 
             $.ajax({
                 url: "/ajax_oeosetting_change/",
                 type: "POST",
-                data: {"Device":"1",
+                data: {"Device":id,
                     "oeoname":oeonamein,"oeoip":oeoipin,
                     "oeoport":oeoportin,"oeokey":oeokeyin},
                 dataType: "json",
                 success:function (data) {
-                    $("#comformchange1").removeAttr("disabled");
-                    $("#comformchange1").text("确认修改");
+                    $("#comformchange"+id).removeAttr("disabled");
+                    $("#comformchange"+id).text("确认修改");
 
                     if(data["result"]=="success"){
                         ShowTopInfo1("alert-success","<strong>Success!</strong> 写入数据库成功！");
@@ -363,6 +312,7 @@
                         ShowTopInfo1("alert-danger","<strong>Error!</strong> 请检查你的数据！");
                     }
                     setTimeout(function () {$("#Topinfo1").empty();},hidetime);
+                    $("#Topinfo2").addClass("hide");
                 }
             }); // end ajax
 
@@ -370,39 +320,6 @@
             setTimeout(getlog,logtime);
         }); // end change information
 
-        $("#comformchange2").click(function () {
-            $("#comformchange2").attr("disabled","disabled");
-            $("#comformchange2").text("Runing...");
-
-            //此时应该检查出入并更新数据库
-            var oeonamein = $("#oeoname2").val();
-            var oeoipin = $("#oeoip2").val();
-            var oeoportin = $("#oeoport2").val();
-            var oeokeyin = $("#oeokey2").val();
-
-            $.ajax({
-                url: "/ajax_oeosetting_change/",
-                type: "POST",
-                data: {"Device":"2",
-                    "oeoname":oeonamein,"oeoip":oeoipin,
-                    "oeoport":oeoportin,"oeokey":oeokeyin},
-                dataType: "json",
-                success:function (data) {
-                    $("#comformchange2").removeAttr("disabled");
-                    $("#comformchange2").text("确认修改");
-
-                    if(data["result"]=="success"){
-                        ShowTopInfo1("alert-success","<strong>Success!</strong> 写入数据库成功！");
-                    }else{
-                        ShowTopInfo1("alert-danger","<strong>Error!</strong> 请检查你的数据！");
-                    }
-                    setTimeout(function () {$("#Topinfo1").empty();},hidetime);
-                }
-            }); // end ajax
-
-            //获取log日志
-            setTimeout(getlog,logtime);
-        }); // end change information
 
         //获取日志信息
         function getlog() {

@@ -27,6 +27,7 @@ def logging(req):
 
 def setting(req):
     # TODO 这里还需要补充WSS的内容
+    # TODO 补充资源利用率代码
     odlinfo = models.odlinfo.objects.all()
     oeoinfo1 = models.oeoinfo.objects.filter(id=1)
     oeoinfo2 = models.oeoinfo.objects.filter(id=2)
