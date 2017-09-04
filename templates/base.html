@@ -17,10 +17,6 @@
     <script src="/statics/js/jquery-3.2.1.min.js"></script>
     <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- 进度条效果 MDL-->
-    <link href="/statics/mdl/material.min.css" rel="stylesheet">
-    <script src="/statics/mdl/material.min.js"></script>
-
     <!-- 此处按需引入额外的js库，包括echart以及主题,或自定义js -->
     {% block AdditionScript %} {% endblock %}
 
@@ -91,9 +87,13 @@
 
         <!-- 高层弹出框 -->
         <div id="Topinfo1"></div>
+        <!-- 进度条特效 -->
         <div id="Topinfo2" class="hide">
-            <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"
-             style="width: 100%"></div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active"
+                     role="progressbar" style="width: 100%">
+                </div>
+            </div>
         </div>
         <!-- 高层弹出框 -->
 

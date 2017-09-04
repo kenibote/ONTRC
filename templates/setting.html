@@ -20,15 +20,15 @@
 
     <div id="echart-water-oeo"
          style="width: 250px;height:250px; position: absolute;
-         margin-top: -40px;margin-left: 500px; z-index: 1001"></div>
+         margin-top: -30px;margin-left: 500px; z-index: 1001"></div>
     <div style="width: 250px;height:250px; position: absolute;
-         margin-top: 165px;margin-left: 590px; z-index: 1001"><strong>OEO使用率</strong></div>
+         margin-top: 175px;margin-left: 590px; z-index: 1001"><strong>OEO使用率</strong></div>
 
     <div id="echart-water-wss"
          style="width: 250px;height:250px; position: absolute;
-         margin-top: -40px;margin-left: 700px; z-index: 1001"></div>
+         margin-top: -30px;margin-left: 700px; z-index: 1001"></div>
     <div style="width: 250px;height:250px; position: absolute;
-         margin-top: 165px;margin-left: 790px; z-index: 1001"><strong>WSS使用率</strong></div>
+         margin-top: 175px;margin-left: 790px; z-index: 1001"><strong>WSS使用率</strong></div>
 
     <div class="list-group">
         <a href="/odlsetting/" class="list-group-item">
@@ -39,9 +39,10 @@
                     <div class="panel panel-danger">
                         <div class="panel-heading"><strong>ODL#0</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> 429Lab <br>
+                            <strong>位置：</strong> {{ odlinfo.odllocation }} <br>
                             <strong>状态：</strong> {{ odlinfo.odlstate }} <br>
                             <strong>IP：</strong> {{ odlinfo.odlip }}:{{ odlinfo.odlport }} <br>
+                            <strong>型号：</strong> {{ odlinfo.odltype }} <br>
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                     <div class="panel panel-warning">
                         <div class="panel-heading"><strong>OEO#1</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> A <br>
+                            <strong>位置：</strong> {{ oeoinfo1.oeolocation }} <br>
                             <strong>状态：</strong> {{ oeoinfo1.oeostate }} <br>
                             <strong>代理：</strong> {{ oeoinfo1.oeoip }}:{{ oeoinfo1.oeoport }} <br>
                             <strong>型号：</strong> {{ oeoinfo1.oeotype }} <br>
@@ -69,7 +70,7 @@
                     <div class="panel panel-warning">
                         <div class="panel-heading"><strong>OEO#2</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> B <br>
+                            <strong>位置：</strong> {{ oeoinfo2.oeolocation }} <br>
                             <strong>状态：</strong> {{ oeoinfo2.oeostate }} <br>
                             <strong>代理：</strong> {{ oeoinfo2.oeoip }}:{{ oeoinfo2.oeoport }} <br>
                             <strong>型号：</strong> {{ oeoinfo2.oeotype }} <br>
@@ -88,7 +89,7 @@
                     <div class="panel panel-success">
                         <div class="panel-heading"><strong>WSS#1</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> 429Lab <br>
+                            <strong>位置：</strong> 429Lab <br>
                             <strong>状态：</strong> {{ wssinfo1.wssstate }} <br>
                             <strong>代理：</strong> {{ wssinfo1.wssip }}:{{ odlinfo1.wssport }} <br>
                             <strong>型号：</strong> {{ wssinfo1.wsstype }} <br>
@@ -100,7 +101,7 @@
                     <div class="panel panel-success">
                         <div class="panel-heading"><strong>WSS#2</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> 429Lab <br>
+                            <strong>位置：</strong> 429Lab <br>
                             <strong>状态：</strong> {{ wssinfo2.wssstate }} <br>
                             <strong>代理：</strong> {{ wssinfo2.wssip }}:{{ odlinfo2.wssport }} <br>
                             <strong>型号：</strong> {{ wssinfo2.wsstype }} <br>
@@ -112,7 +113,7 @@
                     <div class="panel panel-success">
                         <div class="panel-heading"><strong>WSS#3</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> 429Lab <br>
+                            <strong>位置：</strong> 429Lab <br>
                             <strong>状态：</strong> {{ wssinfo3.wssstate }} <br>
                             <strong>代理：</strong> {{ wssinfo3.wssip }}:{{ odlinfo3.wssport }} <br>
                             <strong>型号：</strong> {{ wssinfo3.wsstype }} <br>
@@ -124,7 +125,7 @@
                     <div class="panel panel-success">
                         <div class="panel-heading"><strong>WSS#4</strong></div>
                         <div class="panel-body">
-                            <strong>地址：</strong> 429Lab <br>
+                            <strong>位置：</strong> 429Lab <br>
                             <strong>状态：</strong> {{ wssinfo4.wssstate }} <br>
                             <strong>代理：</strong> {{ wssinfo4.wssip }}:{{ odlinfo4.wssport }} <br>
                             <strong>型号：</strong> {{ wssinfo4.wsstype }} <br>

@@ -37,9 +37,9 @@
 
             <div class="row" style="margin-left: 5px; margin-bottom: 5px">
                 <div class="col-md-6 input-group has-warning">
-                  <span class="input-group-addon">ODL编号</span>
+                  <span class="input-group-addon">ODL型号</span>
                   <input type="text" class="form-control odlinput"
-                         value="{{ odlinfo.odlname }}" id="odlname" disabled>
+                         value="{{ odlinfo.odltype }}" id="odltype" disabled>
                 </div>
             </div>
 
@@ -66,6 +66,14 @@
                   <span class="input-group-addon">鉴权码：</span>
                   <input type="text" class="form-control odlinput"
                          value="{{ odlinfo.odlkey }}" id="odlkey" disabled>
+                </div>
+            </div>
+
+            <div class="row" style="margin-left: 5px; margin-bottom: 5px">
+                <div class="col-md-6 input-group has-success">
+                  <span class="input-group-addon">位置：</span>
+                  <input type="text" class="form-control odlinput"
+                         value="{{ odlinfo.odllocation }}" id="odllocation" disabled>
                 </div>
             </div>
 
@@ -112,8 +120,6 @@
                 $(".odlinput").removeAttr("disabled");
             }
 
-            var top2 = "<div id=\"p2\" class=\"mdl-progress mdl-js-progress mdl-progress__indeterminate\"></div>";
-            $("#Topinfo2").append(top2);
             //获取log日志
             setTimeout(getlog,100);
         });
@@ -195,16 +201,18 @@
             $("#Topinfo2").removeClass("hide");
 
             //此时应该检查出入并更新数据库
-            var odlnamein = $("#odlname").val();
+            var odltypein = $("#odltype").val();
             var odlipin = $("#odlip").val();
             var odlportin = $("#odlport").val();
             var odlkeyin = $("#odlkey").val();
+            var odllocationin = $("#odllocation").val();
 
             $.ajax({
                 url: "/ajax_odlsetting_change/",
                 type: "POST",
-                data: {"odlname":odlnamein,"odlip":odlipin,
-                    "odlport":odlportin,"odlkey":odlkeyin},
+                data: {"odltype":odltypein,"odlip":odlipin,
+                    "odlport":odlportin,"odlkey":odlkeyin,
+                    "odllocation":odllocationin},
                 dataType: "json",
                 success:function (data) {
                     $("#comformchange").removeAttr("disabled");

@@ -50,7 +50,7 @@
                         <div class="col-md-6 input-group has-warning">
                           <span class="input-group-addon">OEO型号</span>
                           <input type="text" class="form-control oeoinput1"
-                                 value="{{ oeoinfo1.oeoname }}" id="oeoname1" disabled>
+                                 value="{{ oeoinfo1.oeotype }}" id="oeotype1" disabled>
                         </div>
                     </div>
 
@@ -77,6 +77,14 @@
                           <span class="input-group-addon">鉴权码：</span>
                           <input type="text" class="form-control oeoinput1"
                                  value="{{ oeoinfo1.oeokey }}" id="oeokey1" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 5px; margin-bottom: 5px">
+                        <div class="col-md-6 input-group has-success">
+                          <span class="input-group-addon">位置：</span>
+                          <input type="text" class="form-control oeoinput1"
+                                 value="{{ oeoinfo1.oeolocation }}" id="oeolocation1" disabled>
                         </div>
                     </div>
 
@@ -118,7 +126,7 @@
                         <div class="col-md-6 input-group has-warning">
                           <span class="input-group-addon">OEO型号</span>
                           <input type="text" class="form-control oeoinput2"
-                                 value="{{ oeoinfo2.oeoname }}" id="oeoname2" disabled>
+                                 value="{{ oeoinfo2.oeotype }}" id="oeotype2" disabled>
                         </div>
                     </div>
 
@@ -145,6 +153,14 @@
                           <span class="input-group-addon">鉴权码：</span>
                           <input type="text" class="form-control oeoinput2"
                                  value="{{ oeoinfo2.oeokey }}" id="oeokey2" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-left: 5px; margin-bottom: 5px">
+                        <div class="col-md-6 input-group has-success">
+                          <span class="input-group-addon">位置：</span>
+                          <input type="text" class="form-control oeoinput2"
+                                 value="{{ oeoinfo2.oeolocation }}" id="oeolocation2" disabled>
                         </div>
                     </div>
 
@@ -290,16 +306,17 @@
             $("#Topinfo2").removeClass("hide");
 
             //此时应该检查出入并更新数据库
-            var oeonamein = $("#oeoname"+id).val();
+            var oeotypein = $("#oeotype"+id).val();
             var oeoipin = $("#oeoip"+id).val();
             var oeoportin = $("#oeoport"+id).val();
             var oeokeyin = $("#oeokey"+id).val();
+            var oeolocationin = $("#oeolocation"+id).val();
 
             $.ajax({
                 url: "/ajax_oeosetting_change/",
                 type: "POST",
-                data: {"Device":id,
-                    "oeoname":oeonamein,"oeoip":oeoipin,
+                data: {"Device":id, "oeolocation":oeolocationin,
+                    "oeotype":oeotypein,"oeoip":oeoipin,
                     "oeoport":oeoportin,"oeokey":oeokeyin},
                 dataType: "json",
                 success:function (data) {

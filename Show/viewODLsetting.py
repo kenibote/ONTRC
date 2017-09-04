@@ -13,12 +13,11 @@ def odlsetting(req):
 
 # 当停止ODL服务的时候
 def ajax_odlsetting_stop(req):
-    # TODO 补充停止服务器代码
+    # TODO 补充停止服务器代码（目前的结构打算只是关闭开关）
     print("ODL服务暂停...")
     if(True):
         # 先修改数据库记录
         models.odlinfo.objects.filter(id=1).update(
-            odlright="yes",
             odlstate="off"
         )
         dic = {"result": "success"}
@@ -26,8 +25,9 @@ def ajax_odlsetting_stop(req):
         dic = {"result": "error"}
 
     models.odlsetlog.objects.create(
-        logtime=time.strftime("%Y-%m-%d", time.localtime()),
-        loginfo='ODL服务暂停...' + str(models.odlinfo.objects.last())
+        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        loginfo='ODL服务暂停...' + str(models.odlinfo.objects.last()),
+        logtype='服务暂停'
     )
     time.sleep(3)
     return HttpResponse(json.dumps(dic))
@@ -36,13 +36,12 @@ def ajax_odlsetting_stop(req):
 
 # 当启动ODL服务的时候
 def ajax_odlsetting_start(req):
-    # TODO 补充启动服务器代码
+    # TODO 补充启动服务器代码（进行连通性测试）
     print("ODL服务启动...")
 
     if(True):
         # 先修改数据库记录
         models.odlinfo.objects.filter(id=1).update(
-            odlright="yes",
             odlstate="on"
         )
         dic = {"result": "success"}
@@ -50,8 +49,9 @@ def ajax_odlsetting_start(req):
         dic = {"result": "error"}
 
     models.odlsetlog.objects.create(
-        logtime=time.strftime("%Y-%m-%d", time.localtime()),
-        loginfo='ODL服务启动...' + str(models.odlinfo.objects.last())
+        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        loginfo='ODL服务启动...' + str(models.odlinfo.objects.last()),
+        logtype='服务启动'
     )
     time.sleep(3)
     return HttpResponse(json.dumps(dic))
@@ -66,18 +66,20 @@ def ajax_odlsetting_change(req):
         #print(req.POST)
         # TODO 这里可能还需要添加数据验证代码，目前先默认正确
         models.odlinfo.objects.filter(id=1).update(
-            odlname=req.POST.get("odlname", None),
+            odltype=req.POST.get("odltype", None),
             odlip=req.POST.get("odlip", None),
             odlport=req.POST.get("odlport", None),
             odlkey=req.POST.get("odlkey", None),
-            odlright="no",
-            odlstate="off"
+            odlright="NULL",
+            odlstate="off",
+            odllocation=req.POST.get("odllocation",None)
         )
         dic={"result":"success"}
 
     models.odlsetlog.objects.create(
-        logtime=time.strftime("%Y-%m-%d", time.localtime()),
-        loginfo='ODL信息修改...'+str(models.odlinfo.objects.last())
+        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        loginfo='ODL信息修改...'+str(models.odlinfo.objects.last()),
+        logtype='信息修改'
     )
     time.sleep(3)
     return HttpResponse(json.dumps(dic))

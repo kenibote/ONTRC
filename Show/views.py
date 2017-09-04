@@ -37,8 +37,9 @@ def setting(req):
 
 
 def help(req):
-
-    return render(req,"help.html")
+    author = models.help.objects.filter(id=1)
+    info = models.help.objects.filter(id__gt=1)
+    return render(req,"help.html",{"author":author[0],"info":info})
 
 # 对于空连接，直接返回主页
 def NoneMainPage(req):

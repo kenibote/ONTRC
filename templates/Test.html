@@ -7,8 +7,7 @@
     <script src="/statics/js/echarts/echarts-liquidfill.js"></script>
     <link href="/statics/css/switch.css" rel="stylesheet">
 
-    <link href="/statics/mdl/material.min.css" rel="stylesheet">
-    <script src="/statics/mdl/material.min.js"></script>
+
 {% endblock %}
 
 {% block titleURL%} /index/ {% endblock %}
@@ -20,17 +19,14 @@
 
 {% block MainContents %}
     <h2>这是测试页！！！ </h2>
-    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+    </div>
+    </div>
     <hr>
 
     <div class="row">
         <div class="col-md-8" id="echart-test" style="width: 500px;height:400px;"></div>
-        <div class="col-md-4" id="echart-water" style="width: 500px;height:400px;"></div>
-    </div>
-
-    <div class="toggle toggle--knob">
-			<input type="checkbox" id="toggle--knob" class="toggle--checkbox">
-			<label class="toggle--btn" for="toggle--knob"><span class="toggle--feature" data-label-on="on"  data-label-off="off"></span></label>
     </div>
 
     <div class="toggle toggle--daynight">
@@ -72,25 +68,6 @@
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-
-
-        var myWater = echarts.init(document.getElementById('echart-water'));
-        var optionWater = {
-            series: [{
-                type: 'liquidFill',
-                data: [0.5, 0.4, 0.3],
-                color: ['red', '#0f0', 'rgb(0, 0, 255)'],
-                itemStyle: {
-                    normal: {
-                        opacity: 0.6
-                    },
-                    emphasis: {
-                        opacity: 0.9
-                    }
-                }
-            }]
-         };
-        myWater.setOption(optionWater);
 
 
     </script>
