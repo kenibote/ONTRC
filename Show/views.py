@@ -15,10 +15,6 @@ def index(req):
 
     return render(req,"index.html")
 
-def control(req):
-
-    return render(req,"control.html")
-
 
 def logging(req):
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse
-import json,time
+import json,time, Show.communication
 
 from Show import models
 # Create your views here.
@@ -13,52 +13,61 @@ def oeosetting(req):
 
 # 当停止OEO服务的时候
 def ajax_oeosetting_stop(req):
-    # TODO 补充停止服务器代码
+    # 这里直接在数据库中标记一下即可
     print("OEO服务暂停...")
     deviceid = int(req.POST.get("Device",None))
 
     if(True):
         # 先修改数据库记录
         models.oeoinfo.objects.filter(id=deviceid).update(
-            oeostate="off"
+            oeostate="OFF"
         )
+        # 生成操作记录
+        models.oeosetlog.objects.create(
+            logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+            loginfo='OEO#'+str(deviceid)+' 服务暂停...' +
+                    str(models.oeoinfo.objects.filter(id=deviceid)[0]),
+            logtype='暂停操作'
+        )
+        # 生成操作结果
         dic = {"result": "success"}
     else:
         dic = {"result": "error"}
-
-    models.oeosetlog.objects.create(
-        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-        loginfo='OEO#'+str(deviceid)+' 服务暂停...' +
-                str(models.oeoinfo.objects.filter(id=deviceid)[0]),
-        logtype='暂停操作'
-    )
-    time.sleep(3)
+    # 返回操作结果
+    time.sleep(2)
     return HttpResponse(json.dumps(dic))
 
 
 
 # 当启动OEO服务的时候
 def ajax_oeosetting_start(req):
-    # TODO 补充启动服务器代码
+    # 这里尝试发送一个hello包
     print("OEO服务启动...")
     deviceid = int(req.POST.get("Device", None))
 
-    if(True):
+    getinfo = models.oeoinfo.objects.filter(id=deviceid)[0]
+    result = Show.communication.testHello(getinfo.oeoip,getinfo.oeoport,getinfo.oeokey)
+
+    # 当hello包发送与接收正确的时候
+    if(result.startswith("SUCCESS")):
         # 先修改数据库记录
         models.oeoinfo.objects.filter(id=deviceid).update(
-            oeostate="on"
+            oeostate="ON"
         )
+        # 然后记录操作
+        models.oeosetlog.objects.create(
+            logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+            loginfo='OEO#'+str(deviceid)+' 服务启动...' +
+                    str(models.oeoinfo.objects.filter(id=deviceid)[0]),
+            logtype='启动操作'
+        )
+        # 生成操作结果
         dic = {"result": "success"}
     else:
+        # 如果失败则什么也不操作，直接返回操作失败结果
         dic = {"result": "error"}
-
-    models.oeosetlog.objects.create(
-        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-        loginfo='OEO#'+str(deviceid)+' 服务启动...' +
-                str(models.oeoinfo.objects.filter(id=deviceid)[0]),
-        logtype='启动操作'
-    )
-    time.sleep(3)
+    # 返回操作结果
+    time.sleep(2)
     return HttpResponse(json.dumps(dic))
 
 
@@ -66,28 +75,29 @@ def ajax_oeosetting_start(req):
 # 当OEO设置发生变化时候
 def ajax_oeosetting_change(req):
     print("OEO信息修改...")
-    # print(req.POST)
 
     deviceid = int(req.POST.get("Device", None))
     # TODO 这里可能还需要添加数据验证代码，目前先默认正确
+    # 更新数据库数据
     models.oeoinfo.objects.filter(id=deviceid).update(
         oeotype=req.POST.get("oeotype", None),
         oeoip=req.POST.get("oeoip", None),
         oeoport=req.POST.get("oeoport", None),
         oeokey=req.POST.get("oeokey", None),
         oeoright="NULL",
-        oeostate="off",
+        oeostate="OFF",
         oeolocation=req.POST.get("oeolocation", None)
     )
-    dic={"result":"success"}
-
+    # 生成操作日志
     models.oeosetlog.objects.create(
         logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
         loginfo='OEO#'+str(deviceid)+' 信息修改...'+
                 str(models.oeoinfo.objects.filter(id=deviceid)[0]),
         logtype='信息修改'
     )
-    time.sleep(3)
+    # 返回操作结果
+    dic={"result":"success"}
+    time.sleep(2)
     return HttpResponse(json.dumps(dic))
 
 

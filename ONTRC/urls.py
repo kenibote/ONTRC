@@ -16,7 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from Show import views,viewODLsetting,viewOEOsetting,viewWSSsetting
+from Show import views,\
+    viewODLsetting,viewOEOsetting,viewWSSsetting,\
+    viewControl
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,10 +28,15 @@ urlpatterns = [
     # 主页面
     url(r'^404',views.pagenotfound),
     url(r'^index',views.index),
-    url(r'^control', views.control),
     url(r'^log',views.logging),
     url(r'^setting', views.setting),
     url(r'^help', views.help),
+
+    # Control 部分
+    url(r'^control', viewControl.control),
+    url(r'^ajax_control_loadoeoinfo',viewControl.ajax_control_loadoeoinfo),
+    url(r'^ajax_control_updataoeoinfo',viewControl.ajax_control_updataoeoinfo),
+
 
     # ODL setting 部分
     url(r'^odlsetting',viewODLsetting.odlsetting),
