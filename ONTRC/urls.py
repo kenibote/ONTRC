@@ -36,7 +36,8 @@ urlpatterns = [
     url(r'^control', viewControl.control),
     url(r'^ajax_control_loadoeoinfo',viewControl.ajax_control_loadoeoinfo),
     url(r'^ajax_control_updataoeoinfo',viewControl.ajax_control_updataoeoinfo),
-
+    url(r'^ajax_control_setoeo',viewControl.ajax_control_setoeo),
+    url(r'^snmpudp',viewControl.snmpudp),
 
     # ODL setting 部分
     url(r'^odlsetting',viewODLsetting.odlsetting),
@@ -54,6 +55,10 @@ urlpatterns = [
 
     # WSS setting 部分
     url(r'^wsssetting',viewWSSsetting.wsssetting),
+    url(r'^ajax_wsssetting_stop',viewWSSsetting.ajax_wsssetting_stop),
+    url(r'^ajax_wsssetting_start',viewWSSsetting.ajax_wsssetting_start),
+    url(r'^ajax_wsssetting_change',viewWSSsetting.ajax_wsssetting_change),
+    url(r'^ajax_wsssetting_getlog',viewWSSsetting.ajax_wsssetting_getlog),
 
     # 对于空连接重定向至主页
     url(r'',views.NoneMainPage),

@@ -43,7 +43,7 @@ class oeoinfo(models.Model):
                ' Location:'+self.oeolocation+ \
                ' State:'+self.oeostate
 
-# TODO 补充OEO基本状态信息 电源，风扇，温度
+
 
 # OEO配置日志
 class oeosetlog(models.Model):
@@ -75,7 +75,6 @@ class oeoCard(models.Model):
     # 该板卡连接了WSS的哪一个输出口
     oeoCardInWssPort = models.CharField(max_length=10)
     # 该板卡的工作波长
-    # TODO 这里可以建一张字典对应关系表
     oeoCardFrequency = models.IntegerField()
     # 该板卡的工作状态
     oeoCardState = models.CharField(max_length=10)
@@ -111,5 +110,28 @@ class oeoCardLog(models.Model):
     logtime = models.CharField(max_length=40)
     deviceid = models.CharField(max_length=10)
     slotid = models.CharField(max_length=10)
+    logtype = models.CharField(max_length=20)
+    loginfo = models.CharField(max_length=100)
+
+
+class wssInfo(models.Model):
+    wsstype = models.CharField(max_length=20)
+    wssip = models.CharField(max_length=20)
+    wssport = models.CharField(max_length=10)
+    wsskey = models.CharField(max_length=20)
+    # 目前right这个字段没有用到
+    wssright = models.CharField(max_length=10)
+    wssstate = models.CharField(max_length=10)
+    wsslocation = models.CharField(max_length=20)
+    def __str__(self):
+        return ' Type:'+self.wsstype+\
+               ' IP:'+self.wssip+':'+self.wssport+\
+               ' Code:'+self.wsskey+\
+               ' Location:'+self.wsslocation+ \
+               ' State:'+self.wssstate
+
+
+class wssSetLog(models.Model):
+    logtime = models.CharField(max_length=40)
     logtype = models.CharField(max_length=20)
     loginfo = models.CharField(max_length=100)

@@ -18,7 +18,7 @@ def ajax_odlsetting_stop(req):
     if(True):
         # 先修改数据库记录
         models.odlinfo.objects.filter(id=1).update(
-            odlstate="off"
+            odlstate="OFF"
         )
         dic = {"result": "success"}
     else:
@@ -42,7 +42,7 @@ def ajax_odlsetting_start(req):
     if(True):
         # 先修改数据库记录
         models.odlinfo.objects.filter(id=1).update(
-            odlstate="on"
+            odlstate="ON"
         )
         dic = {"result": "success"}
     else:
@@ -71,7 +71,7 @@ def ajax_odlsetting_change(req):
             odlport=req.POST.get("odlport", None),
             odlkey=req.POST.get("odlkey", None),
             odlright="NULL",
-            odlstate="off",
+            odlstate="OFF",
             odllocation=req.POST.get("odllocation",None)
         )
         dic={"result":"success"}

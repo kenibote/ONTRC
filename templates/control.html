@@ -2,7 +2,9 @@
 
 <!-- 页面标题 -->
 {% block PageTitle %} 控制界面 {% endblock %}
-{% block AdditionScript %} {% endblock %}
+{% block AdditionScript %}
+     <script src="/statics/js/topInfo.js"></script>
+{% endblock %}
 
 {% block titleURL%} /index/ {% endblock %}
 {% block title %}
@@ -140,34 +142,35 @@
             <div class="row">
 
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>OEO#1</option>
-                        <option>OEO#2</option>
+                    <select class="form-control" id="DebugOEOdevice">
+                        <option value="1">OEO#1</option>
+                        <option value="2">OEO#2</option>
                     </select>
                 </div>
 
                 <div class="col-md-2">
-                    <select class="form-control">
-                        <option>Card#2</option>
-                        <option>Card#4</option>
-                        <option>Card#6</option>
-                        <option>Card#8</option>
-                        <option>Card#10</option>
-                        <option>Card#12</option>
-                        <option>Card#14</option>
-                        <option>Card#16</option>
+                    <select class="form-control" id="DebugOEOslot">
+                        <option value="2">Card#2</option>
+                        <option value="4">Card#4</option>
+                        <option value="6">Card#6</option>
+                        <option value="8">Card#8</option>
+                        <option value="10">Card#10</option>
+                        <option value="12">Card#12</option>
+                        <option value="14">Card#14</option>
+                        <option value="16">Card#16</option>
                     </select>
                 </div>
 
                 <div class="col-md-2">
                     <button class="btn btn-primary" type="button" data-toggle="collapse"
-                            data-target="#collapseTESTOEO">
-                    未设置
+                            data-target="#collapseTESTOEO" id="DebugSetOeoChanel">
+                    默认C1
                     </button>
                 </div>
 
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger">确认设置</button>
+                    <button type="button" class="btn btn-danger" id="DebugSetOEO">
+                        确认设置</button>
                 </div>
 
                 <div class="col-md-2">
@@ -181,94 +184,107 @@
             <div class="collapse" id="collapseTESTOEO" style="margin-top: 20px">
                 <div class="well">
                     <div class="row">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C1">C01</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C2">C02</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C3">C03</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C4">C04</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C5">C05</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C6">C06</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C7">C07</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C8">C08</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C9">C09</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C10">C10</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C1" value="1">C01</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C2" value="2">C02</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C3" value="3">C03</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C4" value="4">C04</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C5" value="5">C05</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C6" value="6">C06</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C7" value="7">C07</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C8" value="8">C08</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C9" value="9">C09</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C10" value="10">C10</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C11">C11</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C12">C12</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C13">C13</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C14">C14</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C15">C15</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C16">C16</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C17">C17</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C18">C18</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C19">C19</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C20">C20</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C11" value="11">C11</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C12" value="12">C12</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C13" value="13">C13</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C14" value="14">C14</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C15" value="15">C15</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C16" value="16">C16</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C17" value="17">C17</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C18" value="18">C18</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C19" value="19">C19</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C20" value="20">C20</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C31">C31</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C32">C32</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C33">C33</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C34">C34</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C35">C35</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C36">C36</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C37">C37</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C38">C38</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C39">C39</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C40">C40</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C21" value="21">C21</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C22" value="22">C22</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C23" value="23">C23</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C24" value="24">C24</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C25" value="25">C25</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C26" value="26">C26</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C27" value="27">C27</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C28" value="28">C28</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C29" value="29">C29</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C30" value="30">C30</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C41">C41</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C42">C42</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C43">C43</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C44">C44</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C45">C45</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C46">C46</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C47">C47</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C48">C48</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C49">C49</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C50">C50</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C31" value="31">C31</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C32" value="32">C32</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C33" value="33">C33</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C34" value="34">C34</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C35" value="35">C35</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C36" value="36">C36</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C37" value="37">C37</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C38" value="38">C38</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C39" value="39">C39</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C40" value="40">C40</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C51">C51</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C52">C52</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C53">C53</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C54">C54</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C55">C55</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C56">C56</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C57">C57</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C58">C58</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C59">C59</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C60">C60</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C41" value="41">C41</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C42" value="42">C42</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C43" value="43">C43</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C44" value="44">C44</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C45" value="45">C45</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C46" value="46">C46</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C47" value="47">C47</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C48" value="48">C48</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C49" value="49">C49</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C50" value="50">C50</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C61">C61</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C62">C62</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C63">C63</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C64">C64</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C65">C65</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C66">C66</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C67">C67</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C68">C68</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C69">C69</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C70">C70</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C51" value="51">C51</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C52" value="52">C52</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C53" value="53">C53</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C54" value="54">C54</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C55" value="55">C55</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C56" value="56">C56</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C57" value="57">C57</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C58" value="58">C58</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C59" value="59">C59</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C60" value="60">C60</button></div>
                     </div>
 
                     <div class="row" style="margin-top: 20px">
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C71">C71</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C72">C72</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C73">C73</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C74">C74</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C75">C75</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C76">C76</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C77">C77</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C78">C78</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C79">C79</button></div>
-                        <div class="col-md-1"><button type="button" class="btn btn-warning" id="C80">C80</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C61" value="61">C61</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C62" value="62">C62</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C63" value="63">C63</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C64" value="64">C64</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C65" value="65">C65</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C66" value="66">C66</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C67" value="67">C67</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C68" value="68">C68</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C69" value="69">C69</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C70" value="70">C70</button></div>
+                    </div>
+
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C71" value="71">C71</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C72" value="72">C72</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C73" value="73">C73</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C74" value="74">C74</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C75" value="75">C75</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C76" value="76">C76</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C77" value="77">C77</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C78" value="78">C78</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C79" value="79">C79</button></div>
+                        <div class="col-md-1"><button type="button" class="btn btn-warning chanelbutton" id="C80" value="80">C80</button></div>
                     </div>
                 </div>
             </div>
@@ -305,17 +321,61 @@
 
 {% block script %}
     <script>
+        var chanel = 1;  //记录全局chanel
         $("#DHTcontrol").addClass("active");
 
+        // 当页面载入之后，读取数据库信息
         $(document).ready(function () {
             LoadOeoCardInfo("1");
             LoadOeoCardInfo("2");
             }
         );
-        
-        
+
+        // 当通道按钮被按下之后
+        $(".chanelbutton").click(function () {
+            chanel = $(this).val();
+            $("#DebugSetOeoChanel").html("C"+chanel);
+        });
+
+
+        // 当OEO 调试部分的按钮被按下之后
+        $("#DebugSetOEO").click(function () {
+            var oeo = $("#DebugOEOdevice").select().val();
+            var slot = $("#DebugOEOslot").select().val();
+
+            $("#DebugSetOEO").attr("disabled","disabled");
+            $("#DebugSetOEO").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
+
+            $.ajax({
+                url: "/ajax_control_setoeo/",
+                type: "POST",
+                data: {"Device":oeo,"Slot":slot,"Chanel":chanel},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    if(data.data=="SUCCESS")
+                        ShowTopInfo1("alert-success","设置成功！");
+                    else
+                        ShowTopInfo1("alert-danger","设置失败！");
+
+
+                    $("#DebugSetOEO").removeAttr("disabled");
+                    $("#DebugSetOEO").text("确认设置");
+                    $("#Topinfo2").addClass("hide");
+
+                    // 刷新页面
+                    LoadOeoCardInfo("1");
+                    LoadOeoCardInfo("2");
+                }
+            }); // end ajax
+
+        });
+
+
         // 当请求更新数据的时候
         $("#DebugUpdataOEO").click(function () {
+            $("#tableOEO1,#tableOEO2").empty();
 
             $.ajax({
                 url: "/ajax_control_updataoeoinfo/",
@@ -324,15 +384,17 @@
                 dataType: "json",
                 traditional:true,
                 success:function (data) {
-                    alert("123");
+                    console.log(data);
+                    // 显示通知
+                    ShowTopInfo1("alert-success",data.data);
+
+                    // 刷新页面
+                    LoadOeoCardInfo("1");
+                    LoadOeoCardInfo("2");
                 }
             }); // end ajax
 
-            // 刷新页面
-            LoadOeoCardInfo("1");
-            LoadOeoCardInfo("2");
         });
-        
 
         
         function LoadOeoCardInfo(device) {

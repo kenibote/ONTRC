@@ -25,11 +25,21 @@ def setting(req):
     # TODO 这里还需要补充WSS的内容
     # TODO 补充资源利用率代码
     odlinfo = models.odlinfo.objects.all()
+
     oeoinfo1 = models.oeoinfo.objects.filter(id=1)
     oeoinfo2 = models.oeoinfo.objects.filter(id=2)
+
+    wssinfo1 = models.wssInfo.objects.filter(id=1)
+    wssinfo2 = models.wssInfo.objects.filter(id=2)
+    wssinfo3 = models.wssInfo.objects.filter(id=3)
+    wssinfo4 = models.wssInfo.objects.filter(id=4)
     return render(req,"setting.html",{"odlinfo":odlinfo[0],
                                       "oeoinfo1":oeoinfo1[0],
-                                      "oeoinfo2":oeoinfo2[0]})
+                                      "oeoinfo2":oeoinfo2[0],
+                                      "wssinfo1": wssinfo1[0],
+                                      "wssinfo2": wssinfo2[0],
+                                      "wssinfo3": wssinfo3[0],
+                                      "wssinfo4": wssinfo4[0]})
 
 
 def help(req):
