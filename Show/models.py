@@ -135,3 +135,65 @@ class wssSetLog(models.Model):
     logtime = models.CharField(max_length=40)
     logtype = models.CharField(max_length=20)
     loginfo = models.CharField(max_length=100)
+
+
+class wssCardInfo(models.Model):
+    deviceid = models.CharField(max_length=10)
+    chanel = models.CharField(max_length=10)
+    port = models.CharField(max_length=10,default="1")
+    att = models.CharField(max_length=10,default="255")
+    take = models.CharField(max_length=10,default="NO")
+
+
+class wssCardLog(models.Model):
+    logtime = models.CharField(max_length=40)
+    deviceid = models.CharField(max_length=10)
+    logtype = models.CharField(max_length=20)
+    loginfo = models.CharField(max_length=100)
+
+
+class mainpagepoint(models.Model):
+    devicetype = models.CharField(max_length=20)
+    deviceid = models.CharField(max_length=20)
+    portid = models.CharField(max_length=20)
+    porttype = models.CharField(max_length=20)
+    x = models.CharField(max_length=20)
+    y = models.CharField(max_length=20)
+
+# 此表作废，有错别字
+class lightPathInfo(models.Model):
+    name = models.CharField(max_length=20)
+    startswitchid = models.CharField(max_length=10)
+    startswitchport = models.CharField(max_length=10)
+    startodoid = models.CharField(max_length=10)
+    startoeoslot = models.CharField(max_length=10)
+    awgin = models.CharField(max_length=10)
+    hin = models.CharField(max_length=10)
+    wssid = models.CharField(max_length=10)
+    wssport = models.CharField(max_length=10)
+    endoeoid = models.CharField(max_length=10)
+    endoeoslot = models.CharField(max_length=10)
+    enswitchid = models.CharField(max_length=10)
+    endswitchport = models.CharField(max_length=10)
+    att = models.CharField(max_length=10)
+    chanel = models.CharField(max_length=10)
+    state = models.CharField(max_length=10)
+
+
+class lightPathInfo2(models.Model):
+    name = models.CharField(max_length=20)
+    startswitchid = models.CharField(max_length=10)
+    startswitchport = models.CharField(max_length=10)
+    startoeoid = models.CharField(max_length=10)
+    startoeoslot = models.CharField(max_length=10)
+    awgin = models.CharField(max_length=10)
+    hin = models.CharField(max_length=10)
+    wssid = models.CharField(max_length=10)
+    wssport = models.CharField(max_length=10)
+    endoeoid = models.CharField(max_length=10)
+    endoeoslot = models.CharField(max_length=10)
+    endswitchid = models.CharField(max_length=10)
+    endswitchport = models.CharField(max_length=10)
+    att = models.CharField(max_length=10)
+    chanel = models.CharField(max_length=10)
+    state = models.CharField(max_length=10)

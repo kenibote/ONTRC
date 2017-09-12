@@ -2,7 +2,10 @@
 
 <!-- 页面标题 -->
 {% block PageTitle %} 数据中心控制系统主页 {% endblock %}
-{% block AdditionScript %}{% endblock %}
+{% block AdditionScript %}
+    <script src="/statics/js/echarts/echarts.min.js"></script>
+
+{% endblock %}
 
 {% block titleURL%} /index/ {% endblock %}
 {% block title %}
@@ -12,15 +15,144 @@
 
 
 {% block MainContents %}
-    <h2>这是主页（建设中……Coming soon）</h2>
+    <h2>系统全局光路图</h2>
     <hr>
 
-    <img src="/statics/images/mainstructure.png" class="img-responsive" alt="Responsive image">
+    <div id="echart-control" style="width: 1000px;height:600px;"></div>
+
+
 {% endblock %}
 
 
 {% block script %}
     <script>
         $("#DHThomepage").addClass("active");
+
+
+        getdata = [
+                    {coords: {{lp1}} },
+                    {coords: {{lp2}} },
+                    {coords: {{lp3}} },
+                    {coords: {{lp4}} }
+                  ];
+
+    option = {
+        series: [
+            {
+                type: 'lines',
+                name: 'background',
+                coordinateSystem: 'cartesian2d',
+                polyline: 'true',
+                zlevel: 1,
+
+
+                lineStyle: {
+                    normal: {
+                        width: 2,
+                        type:'solid'
+                    },
+                    emphasis:{
+                        color: '#1FF',
+                        shadowBlur: 5
+                    }
+
+                },
+
+                data: [
+                    //{name:'AWGR', coords:[[-0.12,4.56],[-0.12,6.05],[10.0,6.05],[10.0,4.56],[-0.12,4.56]], lineStyle: {normal: {color:'#000'}} },
+                    ]
+            },
+
+
+            {
+                type: 'lines',
+                name: 'LightPath-L1',
+                coordinateSystem: 'cartesian2d',
+                polyline: 'true',
+                zlevel: 2,
+
+                effect:{
+                  show:true,
+                  period: 6,
+                  trailLength: 0.7,
+                  color: '#cd27ff',
+                  symbolSize: 4
+                },
+
+                lineStyle: {
+                    normal: {
+                        color: '#ffb618',
+                        width: 0,
+                        type:'dotted'
+                    }
+
+                },
+
+                data: getdata
+            },
+
+            {
+                type: 'lines',
+                name: 'LightPath-L2',
+                coordinateSystem: 'cartesian2d',
+                polyline: 'true',
+                zlevel: 3,
+                symbol: ['circle', 'circle'],
+                symbolSize: 10,
+
+                lineStyle: {
+                    normal: {
+                        color: '#ffb618',
+                        width: 2,
+                        type:'dotted',
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                        shadowBlur: 10
+                    },
+                    emphasis:{
+                        color: '#ff234a',
+                        width: 4,
+                        type:'soild',
+                        shadowBlur: 5
+                    }
+                },
+
+                data: getdata
+            }
+        ],
+
+        graphic: [
+            {
+                type: 'image',
+                id: 'logo',
+                z: -10,
+                style: {
+                    image: '/statics/images/mainstructure3.png',
+                    width: 1000,
+                    height: 600
+                }
+            }],
+
+
+        xAxis: {
+            axisLabel: {show: false},
+            axisLine: {show: false},
+            splitLine: {show: false},
+            axisTick: {show: false},
+            min: 0,
+            max: 10
+        },
+        yAxis: {
+            axisLabel: {show: false},
+            axisLine: {show: false},
+            splitLine: {show: false},
+            axisTick: {show: false},
+            min: 0,
+            max: 6
+        }
+};
+
+        var myChart = echarts.init(document.getElementById('echart-control'));
+        myChart.setOption(option);
+
     </script>
 {% endblock %}

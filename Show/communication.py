@@ -167,3 +167,92 @@ def changewave(device,slot,chanel):
         result = "FAIL"
 
     return result
+
+
+# 更新WSS信息
+def updataWSSinfo():
+    result = ""
+
+    wssdevice = models.wssInfo.objects.all()
+    # 对于每一个设备
+    for wss in wssdevice:
+        deviceid = str(wss.id)
+        deviceip = str(wss.wssip)
+        deviceport = int(wss.wssport)
+        devicekey = str(wss.wsskey)
+        # 如果设备开启
+        if (str(wss.wssstate) == "ON"):
+            # 开始循环每一个chanel
+            chanel = 1
+            while(chanel<=80):
+                # 取该chanel的状态
+                state = models.wssCardInfo.objects.filter(
+                    deviceid=deviceid,chanel=str(chanel))[0]
+
+                # 如果该chanel已被注册，则根据数据库中的信息配置设备
+                if(str(state.take)=="YES"):
+                    message_send = devicekey + " SET CHANEL:" + str(chanel) + \
+                                   " PORT:"+str(state.port) + \
+                                   " ATT:"+str(state.att) + "\n"
+                    print(message_send)
+                    # 调用通用函数
+                    respond = SendAndRec(deviceip, deviceport, message_send)
+
+                    if(respond.get("result",None)!="SUCCESS"):
+                        result = result + "error in " + deviceid + "#" + str(chanel) + " "
+
+                # 如果该chanel没有被注册，则根据设备的信息更新数据库内容
+                else:
+                    message_send = devicekey + " CHECK CHANEL:"+ str(chanel) +"\n"
+                    print(message_send)
+                    # 调用通用函数
+                    respond = SendAndRec(deviceip, deviceport, message_send)
+
+                    # 如果返回的数据成功
+                    if(respond.get("result",None)=="SUCCESS"):
+                        # 更新WSS信息
+                        models.wssCardInfo.objects.filter(
+                            deviceid=deviceid,chanel=str(chanel)).update(
+                            port = respond.get("port",None),
+                            att = respond.get("att",None)
+                        )
+                    else:
+                        result = result + "error in "+deviceid+"#"+str(chanel)+" "
+
+                # while指针加1
+                chanel+=1
+
+
+        # 如果设备未开启
+        else:
+            result = result + "WSS#" + deviceid + "未启动 "
+
+    # 返回结果
+    return result
+
+
+
+def setWSS(device,chanel,port,att):
+    result = "NULL"
+
+    devicedb = models.wssInfo.objects.filter(id=device)[0]
+    # 检查代理是否启动
+    if(str(devicedb.wssstate)=="ON"):
+        message = str(devicedb.wsskey)+" SET CHANEL:"+chanel+" PORT:"+port+" ATT:"+att+"\n"
+        respond = SendAndRec(str(devicedb.wssip),int(devicedb.wssport),message)
+        # 检查结果
+        if(respond.get("result",None)=="SUCCESS"):
+            # 更新数据
+            models.wssCardInfo.objects.filter(deviceid=device,chanel=chanel).update(
+                port = port,
+                att = att
+            )
+            result = "SUCCESS"
+
+        else:
+            result =  "FAIL"
+
+    else:
+        result =  "FAIL"
+
+    return result

@@ -60,7 +60,7 @@ def snmpudp(req):
     if(UDPSERVRT==0):
         # 如果线程没有启动，则启动线程
         UDPSERVRT = 1
-        Thread = threading.Thread(target=udpthread, args=("10.10.12.20",8099,))
+        Thread = threading.Thread(target=udpthread, args=("10.10.12.25",8099,))
         Thread.setDaemon(True)
         Thread.start()
         print("线程启动成功！")
@@ -81,6 +81,11 @@ def ajax_control_loadoeoinfo(req):
     for e in dataraw:
         data.append(str(e.slotid))
         data.append(str(e.chanel))
+        wave = "NULL"
+        if(str(e.chanel)!="NULL"):
+            wave = models.oeoChanelMap.objects.filter(
+                chanelid=str(e.chanel))[0].wavelength
+        data.append(wave)
         data.append(str(e.statelocal))
         data.append(str(e.stateremote))
         data.append(str(e.take))
@@ -96,6 +101,20 @@ def ajax_control_updataoeoinfo(req):
     data_ret = {"data": data}
     return HttpResponse(json.dumps(data_ret))
 
+# 更新WSS信息
+def ajax_control_updatawssinfo(req):
+    data = communication.updataWSSinfo()
+    data_ret = {"data": data}
+    return HttpResponse(json.dumps(data_ret))
+
+
+# 从数据库载入WSS信息
+
+
+
+
+
+
 
 # 设置OEO波长
 def ajax_control_setoeo(req):
@@ -108,3 +127,90 @@ def ajax_control_setoeo(req):
     print(data)
     data_ret = {"data": data}
     return HttpResponse(json.dumps(data_ret))
+
+# 设置WSS
+def ajax_control_setwss(req):
+    device = str(req.POST.get("Device",None))
+    chanel = str(req.POST.get("Chanel",None))
+    port = str(req.POST.get("Port",None))
+    att = str(req.POST.get("Att",None))
+
+    data = communication.setWSS(device,chanel,port,att)
+    print(data)
+    data_ret = {"data": data}
+    return HttpResponse(json.dumps(data_ret))
+
+
+# 增加光路
+def ajax_control_addlightpath(req):
+    print(req.POST)
+
+    result = "SUCCESS"
+
+    lightpathname = str(req.POST.get("name",None))
+
+    startswitchid = str(req.POST.get("startswitchid",None))
+    startswitchport = str(req.POST.get("startswitchport", None))
+    startoeoid = str(req.POST.get("startoeoid", None))
+    startoeoslot = str(req.POST.get("startoeoslot", None))
+
+    awgin = str(req.POST.get("awgin", None))
+    he = str(req.POST.get("he", None))
+    wssid = str(req.POST.get("wssid", None))
+    wssport = str(req.POST.get("wssport", None))
+    att = str(req.POST.get("att", None))
+    chanel = str(req.POST.get("chanel", None))
+
+    endoeoid = str(req.POST.get("endoeoid", None))
+    endoeoslot = str(req.POST.get("endoeoslot", None))
+    endswitchid = str(req.POST.get("endswitchid", None))
+    endswitchport = str(req.POST.get("endswitchport", None))
+
+
+    # 检查起始端OEO状态
+    startoeo = models.oeoCardInfo.objects.filter(deviceid=startoeoid,slotid=startoeoslot)
+    if(str(startoeo[0].take)=="YES"):
+        result = "FAIL"
+
+    # 检查该WSS通道状态
+    wssstate = models.wssCardInfo.objects.filter(deviceid=wssid,chanel=chanel)
+    if(str(wssstate[0].take)=="YES"):
+        result = "FAIL"
+
+
+    # TODO 调用设置OEO和WSS的程序
+
+
+    if(result=="SUCCESS"):
+        # 登记光路信息
+        models.lightPathInfo2.objects.create(
+            name = lightpathname,
+            startswitchid = startswitchid,
+            startswitchport = startswitchport,
+            startoeoid = startoeoid,
+            startoeoslot = startoeoslot,
+            awgin = awgin,
+            hin = he,
+            wssid = wssid,
+            wssport = wssport,
+            endoeoid = endoeoid,
+            endoeoslot = endoeoslot,
+            endswitchid = endswitchid,
+            endswitchport = endswitchport,
+            att = att,
+            chanel = chanel,
+            state = "NULL"
+        )
+
+        # 登记注册信息
+        startoeo.update(take = "YES")
+        wssstate.update(take = "YES")
+
+
+    data_ret = {"data": result}
+    return HttpResponse(json.dumps(data_ret))
+
+
+# TODO 修改光路，删除光路的操作
+# TODO OEO链路的状态会影响到光路的状态，注意增加相关代码
+# TODO 其实，lightpath中记录的链路状态信息基本无关，在向网页载入数据的时候，直接检查oeo数据库中记录的链路信息即可

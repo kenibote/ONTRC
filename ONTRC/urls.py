@@ -36,8 +36,12 @@ urlpatterns = [
     url(r'^control', viewControl.control),
     url(r'^ajax_control_loadoeoinfo',viewControl.ajax_control_loadoeoinfo),
     url(r'^ajax_control_updataoeoinfo',viewControl.ajax_control_updataoeoinfo),
+    url(r'^ajax_control_updatawssinfo',viewControl.ajax_control_updatawssinfo),
     url(r'^ajax_control_setoeo',viewControl.ajax_control_setoeo),
+    url(r'^ajax_control_setwss',viewControl.ajax_control_setwss),
     url(r'^snmpudp',viewControl.snmpudp),
+    url(r'^ajax_control_addlightpath',viewControl.ajax_control_addlightpath),
+
 
     # ODL setting 部分
     url(r'^odlsetting',viewODLsetting.odlsetting),
