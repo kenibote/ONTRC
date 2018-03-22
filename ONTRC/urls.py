@@ -31,16 +31,20 @@ urlpatterns = [
     url(r'^log',views.logging),
     url(r'^setting', views.setting),
     url(r'^help', views.help),
+    url(r'^ajax_logging_loadlog',views.ajax_logging_loadlog),
 
     # Control 部分
     url(r'^control', viewControl.control),
     url(r'^ajax_control_loadoeoinfo',viewControl.ajax_control_loadoeoinfo),
+    url(r'^ajax_control_loadwssinfo',viewControl.ajax_control_loadwssinfo),
     url(r'^ajax_control_updataoeoinfo',viewControl.ajax_control_updataoeoinfo),
     url(r'^ajax_control_updatawssinfo',viewControl.ajax_control_updatawssinfo),
     url(r'^ajax_control_setoeo',viewControl.ajax_control_setoeo),
     url(r'^ajax_control_setwss',viewControl.ajax_control_setwss),
     url(r'^snmpudp',viewControl.snmpudp),
     url(r'^ajax_control_addlightpath',viewControl.ajax_control_addlightpath),
+    url(r'^ajax_control_loadlightpathtable',viewControl.ajax_control_loadlightpathtable),
+    url(r'^ajax_control_deletlightpath',viewControl.ajax_control_deletlightpath),
 
 
     # ODL setting 部分

@@ -12,8 +12,52 @@
 
 
 {% block MainContents %}
-    <h2>日志页面（建设中……）. </h2>
+    <h2>日志页面</h2>
     <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+        <h4 style="color: #ff6129">    <strong>光路日志</strong></h4>
+        <table class="table table-striped table-hover">
+        <thead> <tr>
+        <th>ID</th> <th>时间</th> <th>类型</th> <th>摘要</th>
+        </tr> </thead>
+
+        <tbody id="tableLightPath"></tbody>
+        </table>
+
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+        <h4 style="color: #ff6129">    <strong>OEO日志</strong></h4>
+        <table class="table table-striped table-hover">
+        <thead> <tr>
+        <th>ID</th> <th>时间</th> <th>类型</th> <th>摘要</th>
+        </tr> </thead>
+
+        <tbody id="tableOEO"></tbody>
+        </table>
+
+        </div>
+
+        <div class="col-md-6">
+        <h4 style="color: #ff6129">    <strong>WSS日志</strong></h4>
+        <table class="table table-striped table-hover">
+        <thead> <tr>
+        <th>ID</th> <th>时间</th> <th>类型</th> <th>摘要</th>
+        </tr> </thead>
+
+        <tbody id="tableWSS"></tbody>
+        </table>
+
+        </div>
+    </div>
+
+
 {% endblock %}
 
 
@@ -21,5 +65,37 @@
 {% block script %}
     <script>
         $("#DHTlogging").addClass("active");
+
+        // 当页面载入之后，读取数据库信息
+        $(document).ready(function () {
+            getlog("OEO");
+            getlog("WSS");
+            getlog("LightPath");
+            }
+        );
+
+        function getlog(deviceid) {
+            $.ajax({
+                url: "/ajax_logging_loadlog/",
+                type: "POST",
+                data: {"Device":deviceid},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    $("#table"+deviceid).empty();
+                    var count=0;
+                    for(;count<data.data.length;count+=4){
+                        var addin = '<tr> <th scope="row">'+data.data[count]+
+                            '</th> <td>'+data.data[count+1]+
+                            '</td> <td>'+data.data[count+2]+
+                            '</td> <td>'+data.data[count+3]+
+                            '</td> </tr>';
+                        $("#table"+deviceid).append(addin);
+                    }
+                }
+            }); // end ajax
+
+
+        }
     </script>
 {% endblock %}

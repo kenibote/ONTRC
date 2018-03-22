@@ -1,10 +1,10 @@
 from django.shortcuts import render,HttpResponse
 import json,time
+from Show import communication
 
 from Show import models
 # Create your views here.
 def test(req):
-
     return render(req,"Test.html")
 
 def pagenotfound(req):
@@ -12,21 +12,24 @@ def pagenotfound(req):
 
 
 def index(req):
-    lp1 = [[-0.5,-0.1],[0.2,1.1],[0.2,2.1],[0.2,3.6],[0.47,3.9],[0.47,4.6],[3.05,6.0],[3.05,6.35],[4.35,5.8],[4.35,4.2],[4.1,3.6],[3.25,2.1],[3.25,1.1],[3.0,-0.1]]
-    lp2 = [[0.1,-0.1],[0.8,1.1],[0.8,2.1],[0.4,3.6],[0.47,3.9],[0.47,4.6],[5.59,6.0],[5.59,6.35],[6.9,5.8],[6.9,4.2],[7.1,3.6],[7.42,2.1],[7.42,1.1],[7.0,-0.1]]
-    lp3 = [[-1,-1],[-1,-2]]
-    lp4 = [[-1, -1],[-1,-2]]
-    return render(req,"index.html",{"lp1":lp1,"lp2":lp2,"lp3":lp3,"lp4":lp4})
+    lp = communication.generate_point()
+    # print(lp)
+    return render(req,"index.html",{"lp1":lp[1],"lp2":lp[2],"lp3":lp[3],"lp4":lp[4],
+                                    "lp5": lp[5], "lp6": lp[6], "lp7": lp[7], "lp8": lp[8],
+                                    "lp9": lp[9], "lp10": lp[10], "lp11": lp[11], "lp12": lp[12],})
 
 
 def logging(req):
-
     return render(req,"logging.html")
+
+def ajax_logging_loadlog(req):
+    targetid = str(req.POST.get("Device",None))
+    data = communication.loadlogpage(targetid)
+    data_ret = {"data": data}
+    return HttpResponse(json.dumps(data_ret))
 
 
 def setting(req):
-    # TODO 这里还需要补充WSS的内容
-    # TODO 补充资源利用率代码
     odlinfo = models.odlinfo.objects.all()
 
     oeoinfo1 = models.oeoinfo.objects.filter(id=1)
@@ -52,4 +55,8 @@ def help(req):
 
 # 对于空连接，直接返回主页
 def NoneMainPage(req):
-    return render(req,"index.html")
+    lp = communication.generate_point()
+    # print(lp)
+    return render(req,"index.html",{"lp1":lp[1],"lp2":lp[2],"lp3":lp[3],"lp4":lp[4],
+                                    "lp5": lp[5], "lp6": lp[6], "lp7": lp[7], "lp8": lp[8],
+                                    "lp9": lp[9], "lp10": lp[10], "lp11": lp[11], "lp12": lp[12],})

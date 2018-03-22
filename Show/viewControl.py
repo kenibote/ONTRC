@@ -60,7 +60,7 @@ def snmpudp(req):
     if(UDPSERVRT==0):
         # 如果线程没有启动，则启动线程
         UDPSERVRT = 1
-        Thread = threading.Thread(target=udpthread, args=("10.10.12.25",8099,))
+        Thread = threading.Thread(target=udpthread, args=("10.10.12.53",8099,))
         Thread.setDaemon(True)
         Thread.start()
         print("线程启动成功！")
@@ -109,10 +109,21 @@ def ajax_control_updatawssinfo(req):
 
 
 # 从数据库载入WSS信息
+# TODO 由于数据量很大，所以只载入正在使用中的通道
+def ajax_control_loadwssinfo(req):
+    deviceid = int(req.POST.get("Device", None))
+    dataraw = models.wssCardInfo.objects.filter(deviceid=deviceid)
 
+    data = []
+    for e in dataraw:
+        if(str(e.att)=="0"):
+            data.append(str(e.chanel))
+            data.append(str(e.port))
+            data.append(str(e.take))
 
-
-
+    # print(data)
+    data_ret = {"data":data}
+    return HttpResponse(json.dumps(data_ret))
 
 
 
@@ -167,18 +178,26 @@ def ajax_control_addlightpath(req):
     endswitchport = str(req.POST.get("endswitchport", None))
 
 
-    # 检查起始端OEO状态
+    # TODO 检查起始端OEO状态
     startoeo = models.oeoCardInfo.objects.filter(deviceid=startoeoid,slotid=startoeoslot)
     if(str(startoeo[0].take)=="YES"):
         result = "FAIL"
 
-    # 检查该WSS通道状态
+    # TODO 检查该WSS通道状态
     wssstate = models.wssCardInfo.objects.filter(deviceid=wssid,chanel=chanel)
     if(str(wssstate[0].take)=="YES"):
         result = "FAIL"
 
 
-    # TODO 调用设置OEO和WSS的程序
+    # TODO 调用设置OEO
+    if(result=="SUCCESS"):
+        if(str(startoeo[0].chanel)!=chanel):
+            # 如果目前OEO的波长与设置值不同，则需要更新
+            result = communication.changewave(startoeoid,startoeoslot,chanel)
+
+    # TODO 调用设置WSS程序
+    if(result=="SUCCESS"):
+        result = communication.setWSS(wssid,chanel,wssport,att)
 
 
     if(result=="SUCCESS"):
@@ -202,6 +221,17 @@ def ajax_control_addlightpath(req):
             state = "NULL"
         )
 
+        models.lightpathlog.objects.create(
+        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        logtype="注册光路",
+        lightpathname = lightpathname,
+        loginfo = "S-s:"+startswitchid+"@"+startswitchport+
+                  " S-o:"+startoeoid+"#"+startoeoslot+
+                  " AWG:"+awgin+"#"+he+" WSS:"+wssid+"@"+wssport+
+                  " E-o:"+endoeoid+"#"+endoeoslot+
+                  " E-s:"+endswitchid+"@"+endswitchport+" Chanel:"+chanel
+        )
+
         # 登记注册信息
         startoeo.update(take = "YES")
         wssstate.update(take = "YES")
@@ -211,6 +241,75 @@ def ajax_control_addlightpath(req):
     return HttpResponse(json.dumps(data_ret))
 
 
-# TODO 修改光路，删除光路的操作
-# TODO OEO链路的状态会影响到光路的状态，注意增加相关代码
-# TODO 其实，lightpath中记录的链路状态信息基本无关，在向网页载入数据的时候，直接检查oeo数据库中记录的链路信息即可
+# 从数据库中载入光路信息
+def ajax_control_loadlightpathtable(req):
+    dataraw = models.lightPathInfo2.objects.all()
+
+    data = []
+    for e in dataraw:
+        data.append(str(e.name))
+        data.append(str(e.startswitchid)+'@'+str(e.startswitchport))
+        data.append(str(e.startoeoid)+'#'+str(e.startoeoslot))
+        data.append(str(e.awgin)+'#'+str(e.hin))
+        data.append(str(e.wssid) + '@' + str(e.wssport))
+        data.append(str(e.endoeoid) + '#' + str(e.endoeoslot))
+        data.append(str(e.endswitchid) + '@' + str(e.endswitchport))
+        data.append(str(e.chanel))
+        startoeo = models.oeoCardInfo.objects.filter(deviceid=str(e.startoeoid),slotid=str(e.startoeoslot))
+        endoeo = models.oeoCardInfo.objects.filter(deviceid=str(e.endoeoid),slotid=str(e.endoeoslot))
+        # TODO 在光路模式下，只有本地接口起来，远端OEO接口起来，才算一条光路建立
+        state = "DOWN"
+        if(str(startoeo[0].statelocal)=="UP" and str(endoeo[0].stateremote)=="UP"):
+            state = "UP"
+        data.append(state)
+
+    # print(data)
+    data_ret = {"data": data}
+    return HttpResponse(json.dumps(data_ret))
+
+
+# TODO 删除光路的时候考虑将OEO波长变到另一个频率
+# TODO 但是修改光路的时候则不需要此操作，可考虑ajax传递一个参数
+def ajax_control_deletlightpath(req):
+    result = "SUCCESS"
+    name = str(req.POST.get("LightPath",None))
+    resetflag = str(req.POST.get("Reset",None))
+
+    db = models.lightPathInfo2.objects.filter(name=name)[0]
+
+    # 释放OEO注册信息
+    models.oeoCardInfo.objects.filter(deviceid=str(db.startoeoid),slotid=str(db.startoeoslot)).update(
+        take = "NO"
+    )
+
+    # 释放WSS注册信息
+    models.wssCardInfo.objects.filter(deviceid=str(db.wssid),chanel=str(db.chanel)).update(
+        take = "NO"
+    )
+
+    # 屏蔽WSS通道
+    result = communication.setWSS(str(db.wssid),str(db.chanel),"1","255")
+
+    # 当需要屏蔽OEO信号的时候，目前默认设置为1通道
+    if(resetflag=="YES"):
+        result = communication.changewave(str(db.startoeoid),str(db.startoeoslot),"50")
+
+    # 删除该光路信息
+    models.lightpathlog.objects.create(
+        logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+        logtype="删除光路",
+        lightpathname = str(db.name),
+        loginfo = "S-s:"+str(db.startswitchid)+"@"+str(db.startswitchport)+
+                  " S-o:"+str(db.startoeoid)+"#"+str(db.startoeoslot)+
+                  " AWG:"+str(db.awgin)+"#"+str(db.hin)+" WSS:"+str(db.wssid)+"@"+str(db.wssport)+
+                  " E-o:"+str(db.endoeoid)+"#"+str(db.endoeoslot)+
+                  " E-s:"+str(db.endswitchid)+"@"+str(db.endswitchport)+" Chanel:"+str(db.chanel)
+    )
+
+    models.lightPathInfo2.objects.filter(name=name).delete()
+
+    data_ret = {"data": result}
+    return HttpResponse(json.dumps(data_ret))
+
+
+

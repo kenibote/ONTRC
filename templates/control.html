@@ -17,7 +17,7 @@
 
 
 {% block MainContents %}
-    <h3>主控面板</h3>
+    <h3>Control Page</h3>
     <hr>
 
     <div class="row">
@@ -27,7 +27,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#Section1"
                       aria-controls="lightpath" role="tab" data-toggle="tab" aria-expanded="true">
-                        <span>光路模式</span></a></li>
+                        <span>Lightpath Model</span></a></li>
                     <li role="presentation" class=""><a href="#Section2"
                         aria-controls="wss" role="tab" data-toggle="tab" aria-expanded="false">
                         <span>WSS调试模式</span></a></li>
@@ -41,15 +41,15 @@
                     <div role="tabpanel" class="tab-pane fade active in" id="Section1">
 
                         <div class="panel panel-warning">
-                            <div class="panel-heading">光路模式（测试版）</div>
+                            <div class="panel-heading">Lightpath Model（TEST）</div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-md-2"><strong>光路名称：</strong></div>
-                                    <div class="col-md-2"><strong>起始交换机:</strong></div>
-                                    <div class="col-md-2"><strong>起始交换机端口:</strong></div>
-                                    <div class="col-md-2"><strong>起始OEO：</strong></div>
-                                    <div class="col-md-2"><strong>起始OEO卡槽：</strong></div>
-                                    <div class="col-md-2"><strong>AWG输入口：</strong></div>
+                                    <div class="col-md-2"><strong>Name：</strong></div>
+                                    <div class="col-md-2"><strong>S-Switch:</strong></div>
+                                    <div class="col-md-2"><strong>S-Switch Port:</strong></div>
+                                    <div class="col-md-2"><strong>S-OEO：</strong></div>
+                                    <div class="col-md-2"><strong>S-OEO Slot：</strong></div>
+                                    <div class="col-md-2"><strong>AWG in Port：</strong></div>
                                 </div>
 
                                 <div class="row">
@@ -107,11 +107,11 @@
                                 </div>
 
                                 <div class="row" style="margin-top: 20px">
-                                    <div class="col-md-2"><strong>合波器入口:</strong></div>
+                                    <div class="col-md-2"><strong>Multiplexer:</strong></div>
                                     <div class="col-md-2"><strong>WSS:</strong></div>
-                                    <div class="col-md-2"><strong>WSS接口:</strong></div>
-                                    <div class="col-md-2"><strong>衰减:</strong></div>
-                                    <div class="col-md-2"><strong>波长(点击选择)：</strong></div>
+                                    <div class="col-md-2"><strong>WSS Port:</strong></div>
+                                    <div class="col-md-2"><strong>ATT:</strong></div>
+                                    <div class="col-md-2"><strong>Chanel：</strong></div>
                                 </div>
 
                                 <div class="row">
@@ -167,30 +167,13 @@
                                 </div>
 
                                 <div class="row" style="margin-top: 20px">
-                                    <div class="col-md-2"><strong>远端交换机:</strong></div>
-                                    <div class="col-md-2"><strong>远端交换机端口:</strong></div>
-                                    <div class="col-md-2"><strong>远端OEO:</strong></div>
-                                    <div class="col-md-2"><strong>远端OEO卡槽:</strong></div>
+                                    <div class="col-md-2"><strong>E-OEO:</strong></div>
+                                    <div class="col-md-2"><strong>E-OEO Slot:</strong></div>
+                                    <div class="col-md-2"><strong>E-Switch:</strong></div>
+                                    <div class="col-md-2"><strong>E-Switch Port:</strong></div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <select class="form-control" id="endswitchid">
-                                            <option value="1">SWITCH#1</option>
-                                            <option value="2">SWITCH#2</option>
-                                            <option value="3">SWITCH#3</option>
-                                            <option value="4">SWITCH#4</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <select class="form-control" id="endswitchport">
-                                            <option value="1">PORT@1</option>
-                                            <option value="2">PORT@2</option>
-                                            <option value="3">PORT@3</option>
-                                        </select>
-                                    </div>
-
                                     <div class="col-md-2">
                                         <select class="form-control" id="endoeodevice">
                                             <option value="1">OEO#1</option>
@@ -212,10 +195,62 @@
                                     </div>
 
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-danger"
-                                                id="light-path-add">注册光路</button>
+                                        <select class="form-control" id="endswitchid">
+                                            <option value="1">SWITCH#1</option>
+                                            <option value="2">SWITCH#2</option>
+                                            <option value="3">SWITCH#3</option>
+                                            <option value="4">SWITCH#4</option>
+                                        </select>
                                     </div>
 
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="endswitchport">
+                                            <option value="1">PORT@1</option>
+                                            <option value="2">PORT@2</option>
+                                            <option value="3">PORT@3</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger"
+                                                id="light-path-add">Confirm</button>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-3"><strong>Select the lightpath：</strong></div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="lightpathmodify">
+                                            <option value="0">Select...</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-danger"
+                                                id="light-path-delet">Delet</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-warning"
+                                                id="light-path-change">Change</button>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4 style="color: #ff6129">    <strong>Lightpath Info</strong></h4>
+                                        <table class="table table-striped table-hover">
+                                        <thead> <tr>
+                                            <th>Name</th> <th>S-Switch</th> <th>S-OEO</th> <th>AWG-in</th>
+                                            <th>WSS</th> <th>E-OEO</th> <th>E-Switch</th> <th>Chanel</th> <th>State</th>
+                                        </tr> </thead>
+
+                                        <tbody id="tableLightPath"></tbody>
+                                        </table>
+
+                                    </div>
                                 </div>
 
 
@@ -292,18 +327,13 @@
                                 <hr>
 
 
-
-
-
-
-
                                 <!--  以下显示WSS卡信息  -->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4 style="color: #ff6129">    <strong>WSS-CoAdna#1</strong></h4>
                                         <table class="table table-striped table-hover">
                                         <thead> <tr>
-                                        <th>通道</th> <th>端口</th> <th>衰减</th> <th>注册光路</th>
+                                        <th>通道</th> <th>端口</th> <th>注册光路</th>
                                         </tr> </thead>
 
                                         <tbody id="tableWSS1"></tbody>
@@ -315,7 +345,7 @@
                                         <h4 style="color: #ff6129">    <strong>WSS-CoAdna#2</strong></h4>
                                         <table class="table table-striped table-hover">
                                         <thead> <tr>
-                                        <th>通道</th> <th>端口</th> <th>衰减</th> <th>注册光路</th>
+                                        <th>通道</th> <th>端口</th> <th>注册光路</th>
                                         </tr> </thead>
 
                                         <tbody id="tableWSS2"></tbody>
@@ -330,7 +360,7 @@
                                         <h4 style="color: #ff6129">    <strong>WSS-Finisa#3</strong></h4>
                                         <table class="table table-striped table-hover">
                                         <thead> <tr>
-                                        <th>通道</th> <th>端口</th> <th>衰减</th> <th>注册光路</th>
+                                        <th>通道</th> <th>端口</th> <th>注册光路</th>
                                         </tr> </thead>
 
                                         <tbody id="tableWSS3"></tbody>
@@ -342,7 +372,7 @@
                                         <h4 style="color: #ff6129">    <strong>WSS-Finisa#4</strong></h4>
                                         <table class="table table-striped table-hover">
                                         <thead> <tr>
-                                        <th>通道</th> <th>端口</th> <th>衰减</th> <th>注册光路</th>
+                                        <th>通道</th> <th>端口</th> <th>注册光路</th>
                                         </tr> </thead>
 
                                         <tbody id="tableWSS4"></tbody>
@@ -608,6 +638,14 @@
             $("#C"+chanel).removeClass("btn-warning");
             $("#C"+chanel).addClass("btn-success");
 
+            //读取光路table
+            LoadLighPathTable();
+            //读取WSS设备信息
+            LoadWSSInfo("1");
+            LoadWSSInfo("2");
+            LoadWSSInfo("3");
+            LoadWSSInfo("4");
+            //读取OEO设备信息
             LoadOeoCardInfo("1");
             LoadOeoCardInfo("2");
             }
@@ -615,18 +653,34 @@
 
         // 当通道按钮被按下之后
         $(".chanelbutton").click(function () {
+                var newchanel = $(this).val();
+                change_chanel(newchanel);
+            });
+
+
+        function change_chanel(newchanel) {
             $("#C"+chanel).removeClass("btn-success");
             $("#C"+chanel).addClass("btn-warning");
 
-            chanel = $(this).val();
+            chanel = newchanel;
             $("#C"+chanel).removeClass("btn-warning");
             $("#C"+chanel).addClass("btn-success");
             $("#DebugSetOeoChanel,#DebugSetWssChanel,#SetLightPath").html("C"+chanel);
-        });
+        }
 
 
         //-----------------------光路模式部分-------------------------
+
+        // 增加光路操作
         $("#light-path-add").click(function () {
+            addlightpath();
+        });
+
+        function addlightpath() {
+            $("#light-path-add").attr("disabled","disabled");
+            $("#light-path-add").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
+
             var lightname = $("#light-path-name").val();
 
             var lightstartswitchid = $("#startswitchid").select().val();
@@ -663,11 +717,109 @@
                     else
                         ShowTopInfo1("alert-danger","设置失败！")
 
+                    $("#light-path-add").removeAttr("disabled");
+                    $("#light-path-add").text("注册光路");
+                    $("#Topinfo2").addClass("hide");
+
                     // 刷新页面
+                    LoadLighPathTable();
+                }
+            }); // end ajax
+        }
+
+
+        // 删除光路操作
+        $("#light-path-delet").click(function () {
+            deletlightpath("YES");
+        });
+
+        function deletlightpath(resetflag) {
+            $("#light-path-delet").attr("disabled","disabled");
+            $("#light-path-delet").text("Runing...");
+            $("#Topinfo2").removeClass("hide");
+
+            var name = $("#lightpathmodify").select().val();
+
+            $.ajax({
+                url: "/ajax_control_deletlightpath/",
+                type: "POST",
+                data: {"LightPath":name,"Reset":resetflag},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    console.log(data);
+                    // 显示通知
+                    ShowTopInfo1("alert-success",data.data);
+
+                    $("#light-path-delet").removeAttr("disabled");
+                    $("#light-path-delet").text("确认删除");
+                    $("#Topinfo2").addClass("hide");
+                    // 刷新页面
+                    LoadLighPathTable();
+                }
+            }); // end ajax
+        }
+
+
+        //当检测到选择框发生变化,快速载入信息
+        $("#lightpathmodify").change(function () {
+            var name = $("#lightpathmodify").select().val();
+
+            $.ajax({
+                url: "/ajax_control_loadlightpathtable/",
+                type: "POST",
+                data: {"Device":"NULL"},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    var count=0;
+                    for(;count<data.data.length;count+=9){
+                        if(data.data[count]==name){
+                            $("#light-path-name").val(name);
+                            change_chanel(data.data[count+7]);
+
+                            var startswitchid = data.data[count+1].split("@")[0];
+                            $("#startswitchid").find("option[value='"+startswitchid+"']").attr("selected",true);
+                            var startswitchport = data.data[count+1].split("@")[1];
+                            $("#startswitchport").find("option[value='"+startswitchport+"']").attr("selected",true);
+
+                            var startoeoid = data.data[count+2].split("#")[0];
+                            $("#startoeodevice").find("option[value='"+startoeoid+"']").attr("selected",true);
+                            var startoeoslot = data.data[count+2].split("#")[1];
+                            $("#startoeoslot").find("option[value='"+startoeoslot+"']").attr("selected",true);
+
+                            var awgin = data.data[count+3].split("#")[0];
+                            $("#light-path-awgin").find("option[value='"+awgin+"']").attr("selected",true);
+                            var hein = data.data[count+3].split("#")[1];
+                            $("#light-path-H").find("option[value='"+hein+"']").attr("selected",true);
+                            var wssid = data.data[count+4].split("@")[0];
+                            $("#light-path-wssdevice").find("option[value='"+wssid+"']").attr("selected",true);
+                            var wssport = data.data[count+4].split("@")[1];
+                            $("#light-path-wssport").find("option[value='"+wssport+"']").attr("selected",true);
+
+                            var endoeoid = data.data[count+5].split("#")[0];
+                            $("#endoeodevice").find("option[value='"+endoeoid+"']").attr("selected",true);
+                            var endoeoslot = data.data[count+5].split("#")[1];
+                            $("#endoeoslot").find("option[value='"+endoeoslot+"']").attr("selected",true);
+
+                            var endswitchid = data.data[count+6].split("@")[0];
+                            $("#endswitchid").find("option[value='"+endswitchid+"']").attr("selected",true);
+                            var endswitchport = data.data[count+6].split("@")[1];
+                            $("#endswitchport").find("option[value='"+endswitchport+"']").attr("selected",true);
+                        }
+                    }
+
                 }
             }); // end ajax
         });
 
+
+        //当按下修改光路按钮的时候，实际上时删除之前信息，再增加新的信息
+        $("#light-path-change").click(function () {
+            deletlightpath("YES");
+            //这里的时间需要斟酌
+            setTimeout("addlightpath()",12000);
+        });
 
 
         //-----------------------WSS调试部分-------------------------
@@ -686,9 +838,13 @@
                     if(data.data=="SUCCESS")
                         ShowTopInfo1("alert-success","设置成功！");
                     else
-                        ShowTopInfo1("alert-danger","设置失败！")
+                        ShowTopInfo1("alert-danger","设置失败！");
 
                     // 刷新页面
+                    LoadWSSInfo("1");
+                    LoadWSSInfo("2");
+                    LoadWSSInfo("3");
+                    LoadWSSInfo("4");
                 }
             }); // end ajax
 
@@ -713,6 +869,8 @@
                     ShowTopInfo1("alert-success",data.data);
 
                     // 刷新页面
+                    LoadWSSInfo("1");
+                    LoadWSSInfo("2");
                 }
             }); // end ajax
 
@@ -801,6 +959,63 @@
                             '</td> </tr>';
                         $("#tableOEO"+device).append(addin);
                     }
+                }
+            }); // end ajax
+        }
+
+        //从数据库载入WSS信息，由于数据量的问题，目前只载入被启用的wss信息
+        function LoadWSSInfo(device) {
+            $.ajax({
+                url: "/ajax_control_loadwssinfo/",
+                type: "POST",
+                data: {"Device":device},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    $("#tableWSS"+device).empty();
+                    var count=0;
+                    for(;count<data.data.length;count+=3){
+                        var addin = '<tr> <th scope="row">'+data.data[count]+
+                            '</th> <td>'+data.data[count+1]+
+                            '</td> <td>'+data.data[count+2]+
+                            '</td> </tr>';
+                        $("#tableWSS"+device).append(addin);
+                    }
+                }
+            }); // end ajax
+        }
+
+        //从数据库载入光路Table信息
+        function LoadLighPathTable() {
+            $.ajax({
+                url: "/ajax_control_loadlightpathtable/",
+                type: "POST",
+                data: {"Device":"NULL"},
+                dataType: "json",
+                traditional:true,
+                success:function (data) {
+                    $("#tableLightPath").empty();
+                    $("#lightpathmodify").empty();
+                    $("#lightpathmodify").append('<option value="0">请选择</option>');
+
+                    var count=0;
+                    for(;count<data.data.length;count+=9){
+                        var addin = '<tr> <th scope="row">'+data.data[count]+
+                            '</th> <td>'+data.data[count+1]+
+                            '</td> <td>'+data.data[count+2]+
+                            '</td> <td>'+data.data[count+3]+
+                            '</td> <td>'+data.data[count+4]+
+                            '</td> <td>'+data.data[count+5]+
+                            '</td> <td>'+data.data[count+6]+
+                            '</td> <td>'+data.data[count+7]+
+                            '</td> <td>'+data.data[count+8]+
+                            '</td> </tr>';
+                        $("#tableLightPath").append(addin);
+
+                        var addin2 = '<option value="'+data.data[count]+'">'+data.data[count]+'</option>';
+                        $("#lightpathmodify").append(addin2);
+                    }
+
                 }
             }); // end ajax
         }

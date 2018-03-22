@@ -15,7 +15,7 @@
 
 
 {% block MainContents %}
-    <h2>系统全局光路图</h2>
+    <h2>System Global View of Lightpath</h2>
     <hr>
 
     <div id="echart-control" style="width: 1000px;height:600px;"></div>
@@ -30,126 +30,136 @@
 
 
         getdata = [
-                    {coords: {{lp1}} },
-                    {coords: {{lp2}} },
-                    {coords: {{lp3}} },
-                    {coords: {{lp4}} }
+                    {coords: {{lp1}} },{coords: {{lp2}} },
+                    {coords: {{lp3}} },{coords: {{lp4}} },
+                    {coords: {{lp5}} },{coords: {{lp6}} },
+                    {coords: {{lp7}} },{coords: {{lp8}} },
+                    {coords: {{lp9}} },{coords: {{lp10}} },
+                    {coords: {{lp11}} },{coords: {{lp12}} }
                   ];
 
-    option = {
-        series: [
-            {
-                type: 'lines',
-                name: 'background',
-                coordinateSystem: 'cartesian2d',
-                polyline: 'true',
-                zlevel: 1,
+
+        option = {
+            series: [
+                {
+                    type: 'lines',
+                    name: 'background',
+                    coordinateSystem: 'cartesian2d',
+                    polyline: 'true',
+                    zlevel: 1,
 
 
-                lineStyle: {
-                    normal: {
-                        width: 2,
-                        type:'solid'
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                            type:'solid'
+                        },
+                        emphasis:{
+                            color: '#1FF',
+                            shadowBlur: 5
+                        }
+
                     },
-                    emphasis:{
-                        color: '#1FF',
-                        shadowBlur: 5
-                    }
 
-                },
-
-                data: [
-                    //{name:'AWGR', coords:[[-0.12,4.56],[-0.12,6.05],[10.0,6.05],[10.0,4.56],[-0.12,4.56]], lineStyle: {normal: {color:'#000'}} },
+                    data: [
+                        {name:'AWGR', coords:[[-0.14,4.58],[-0.14,6.05],[10.03,6.05],[10.03,4.58],[-0.14,4.58]],
+                            lineStyle: {normal: {color:'#ff6129'}} },
+                        {name:'SWITCH1', coords:[[-1.25,-0.74],[-1.25,0.05],[1.44,0.05],[1.44,-0.74],[-1.25,-0.74]],
+                            lineStyle: {normal: {color:'#16466d'}} },
+                        {name:'SWITCH2', coords:[[1.95,-0.74],[1.95,0.05],[4.64,0.05],[4.64,-0.74],[1.95,-0.74]],
+                            lineStyle: {normal: {color:'#16466d'}} },
+                        {name:'SWITCH3', coords:[[5.35,-0.74],[5.35,0.05],[8.03,0.05],[8.03,-0.74],[5.35,-0.74]],
+                            lineStyle: {normal: {color:'#16466d'}} },
+                        {name:'SWITCH4', coords:[[8.55,-0.74],[8.55,0.05],[11.24,0.05],[11.24,-0.74],[8.55,-0.74]],
+                            lineStyle: {normal: {color:'#16466d'}} }
                     ]
-            },
-
-
-            {
-                type: 'lines',
-                name: 'LightPath-L1',
-                coordinateSystem: 'cartesian2d',
-                polyline: 'true',
-                zlevel: 2,
-
-                effect:{
-                  show:true,
-                  period: 6,
-                  trailLength: 0.7,
-                  color: '#cd27ff',
-                  symbolSize: 4
                 },
 
-                lineStyle: {
-                    normal: {
-                        color: '#ffb618',
-                        width: 0,
-                        type:'dotted'
-                    }
+                {
+                    type: 'lines',
+                    name: 'LightPath-L1',
+                    coordinateSystem: 'cartesian2d',
+                    polyline: 'true',
+                    zlevel: 2,
 
-                },
-
-                data: getdata
-            },
-
-            {
-                type: 'lines',
-                name: 'LightPath-L2',
-                coordinateSystem: 'cartesian2d',
-                polyline: 'true',
-                zlevel: 3,
-                symbol: ['circle', 'circle'],
-                symbolSize: 10,
-
-                lineStyle: {
-                    normal: {
-                        color: '#ffb618',
-                        width: 2,
-                        type:'dotted',
-                        shadowColor: 'rgba(0, 0, 0, 0.5)',
-                        shadowBlur: 10
+                    effect:{
+                      show:true,
+                      period: 6,
+                      trailLength: 0.7,
+                      color: '#cd27ff',
+                      symbolSize: 4
                     },
-                    emphasis:{
-                        color: '#ff234a',
-                        width: 4,
-                        type:'soild',
-                        shadowBlur: 5
-                    }
+
+                    lineStyle: {
+                        normal: {
+                            color: '#ffb618',
+                            width: 0,
+                            type:'dotted'
+                        }
+
+                    },
+
+                    data: getdata
                 },
 
-                data: getdata
-            }
-        ],
+                {
+                    type: 'lines',
+                    name: 'LightPath-L2',
+                    coordinateSystem: 'cartesian2d',
+                    polyline: 'true',
+                    zlevel: 3,
+                    symbol: ['circle', 'circle'],
+                    symbolSize: 10,
 
-        graphic: [
-            {
-                type: 'image',
-                id: 'logo',
-                z: -10,
-                style: {
-                    image: '/statics/images/mainstructure3.png',
-                    width: 1000,
-                    height: 600
+                    lineStyle: {
+                        normal: {
+                            color: '#ffb618',
+                            width: 2,
+                            type:'dotted',
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            shadowBlur: 10
+                        },
+                        emphasis:{
+                            color: '#ff234a',
+                            width: 4,
+                            type:'soild',
+                            shadowBlur: 5
+                        }
+                    },
+
+                    data: getdata
                 }
-            }],
+            ],
 
+            graphic: [
+                {
+                    type: 'image',
+                    id: 'logo',
+                    z: -10,
+                    style: {
+                        image: '/statics/images/english.png',//image: '/statics/images/mainstructure3.png',
+                        width: 1000,
+                        height: 600
+                    }
+                }],
 
-        xAxis: {
-            axisLabel: {show: false},
-            axisLine: {show: false},
-            splitLine: {show: false},
-            axisTick: {show: false},
-            min: 0,
-            max: 10
-        },
-        yAxis: {
-            axisLabel: {show: false},
-            axisLine: {show: false},
-            splitLine: {show: false},
-            axisTick: {show: false},
-            min: 0,
-            max: 6
-        }
-};
+            xAxis: {
+                axisLabel: {show: false},
+                axisLine: {show: false},
+                splitLine: {show: false},
+                axisTick: {show: false},
+                min: 0,
+                max: 10
+            },
+            yAxis: {
+                axisLabel: {show: false},
+                axisLine: {show: false},
+                splitLine: {show: false},
+                axisTick: {show: false},
+                min: 0,
+                max: 6
+            }
+        };
 
         var myChart = echarts.init(document.getElementById('echart-control'));
         myChart.setOption(option);

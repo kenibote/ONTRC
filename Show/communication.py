@@ -247,6 +247,13 @@ def setWSS(device,chanel,port,att):
                 port = port,
                 att = att
             )
+            # 记录操作日志
+            models.wssCardLog.objects.create(
+                logtime=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                deviceid=device,
+                logtype="手动修改",
+                loginfo=chanel+"-->"+port+":"+att
+            )
             result = "SUCCESS"
 
         else:
@@ -256,3 +263,117 @@ def setWSS(device,chanel,port,att):
         result =  "FAIL"
 
     return result
+
+# 生成主页的链路
+# TODO 考虑增加一层逻辑：当光路通的时候才显示？
+def generate_point():
+    lines = []
+    lines.append([0,0])
+
+    dataraw = models.lightPathInfo2.objects.all()
+    for e in dataraw:
+        line = []
+
+        startswitch = models.mainpagepoint.objects.filter(
+            devicetype="SWITCH",deviceid=str(e.startswitchid),
+            portid=str(e.startswitchport),porttype="OUT")[0]
+        line.append([float(startswitch.x),float(startswitch.y)])
+
+        startoeo = models.mainpagepoint.objects.filter(
+            devicetype="OEO",deviceid=str(e.startoeoid),
+            portid=str(e.startoeoslot),porttype="IN")[0]
+        line.append([float(startoeo.x),float(startoeo.y)])
+        line.append([float(startoeo.x),float(startoeo.y)+1.02])
+
+        he = models.mainpagepoint.objects.filter(
+            devicetype="HE", deviceid=str(e.awgin),portid=str(e.hin))[0]
+        line.append([float(he.x),float(he.y)])
+
+        awg = models.mainpagepoint.objects.filter(
+            devicetype="HE", deviceid=str(e.awgin), portid="0")[0]
+        line.append([float(awg.x), float(awg.y)])
+
+        awgin = models.mainpagepoint.objects.filter(
+            devicetype="AWGR", portid=str(e.awgin),porttype="IN")[0]
+        line.append([float(awgin.x), float(awgin.y)])
+
+        awgout = models.mainpagepoint.objects.filter(
+            devicetype="AWGR", portid=str(e.wssid),porttype="OUT")[0]
+        line.append([float(awgout.x), float(awgout.y)])
+        line.append([float(awgout.x), float(awgout.y)+0.29])
+
+        wssin = models.mainpagepoint.objects.filter(
+            devicetype="WSS", deviceid=str(e.wssid),portid="0")[0]
+        line.append([float(wssin.x), float(wssin.y)+1.60])
+        line.append([float(wssin.x), float(wssin.y)])
+
+        wssout = models.mainpagepoint.objects.filter(
+            devicetype="WSS",deviceid=str(e.wssid),portid=str(e.wssport))[0]
+        line.append([float(wssout.x), float(wssout.y)])
+
+        endoeo = models.mainpagepoint.objects.filter(
+            devicetype="OEO", deviceid=str(e.endoeoid),
+            portid=str(e.endoeoslot),porttype="OUT")[0]
+        line.append([float(endoeo.x), float(endoeo.y)+1.02])
+        line.append([float(endoeo.x), float(endoeo.y)])
+
+        endswitch = models.mainpagepoint.objects.filter(
+            devicetype="SWITCH", deviceid=str(e.endswitchid),
+            portid=str(e.endswitchport),porttype="IN")[0]
+        line.append([float(endswitch.x), float(endswitch.y)])
+
+        lines.append(line)
+
+    while(len(lines)<=13):
+        lines.append([-2,-2])
+
+    return lines
+
+
+# 生成log页面的加载信息
+def loadlogpage(targetid):
+    data = []
+
+    if(targetid=="OEO"):
+        count = models.oeoCardLog.objects.count()
+        if count > 10:
+            lastid = models.oeoCardLog.objects.last().id
+            dataraw = models.oeoCardLog.objects.filter(id__gt=(lastid-10))
+        else:
+            dataraw = models.oeoCardLog.objects.all()
+        for e in dataraw:
+            data.append(str(e.id))
+            data.append(str(e.logtime))
+            data.append(str(e.logtype))
+            message = "Device:"+str(e.deviceid)+" Slot:"+str(e.slotid)+" #"+str(e.loginfo)
+            data.append(message)
+
+    if(targetid=="WSS"):
+        count = models.wssCardLog.objects.count()
+        if count > 10:
+            lastid = models.wssCardLog.objects.last().id
+            dataraw = models.wssCardLog.objects.filter(id__gt=(lastid-10))
+        else:
+            dataraw = models.wssCardLog.objects.all()
+        for e in dataraw:
+            data.append(str(e.id))
+            data.append(str(e.logtime))
+            data.append(str(e.logtype))
+            message = "Device:"+str(e.deviceid)+" #"+str(e.loginfo)
+            data.append(message)
+
+    if(targetid=="LightPath"):
+        count = models.lightpathlog.objects.count()
+        if count > 10:
+            lastid = models.lightpathlog.objects.last().id
+            dataraw = models.lightpathlog.objects.filter(id__gt=(lastid-10))
+        else:
+            dataraw = models.lightpathlog.objects.all()
+        for e in dataraw:
+            data.append(str(e.id))
+            data.append(str(e.logtime))
+            data.append(str(e.logtype))
+            message = str(e.lightpathname)+" "+str(e.loginfo)
+            data.append(message)
+
+    return data

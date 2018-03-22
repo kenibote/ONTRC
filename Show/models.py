@@ -197,3 +197,10 @@ class lightPathInfo2(models.Model):
     att = models.CharField(max_length=10)
     chanel = models.CharField(max_length=10)
     state = models.CharField(max_length=10)
+
+
+class lightpathlog(models.Model):
+    logtime = models.CharField(max_length=40)
+    lightpathname = models.CharField(max_length=40)
+    logtype = models.CharField(max_length=20)
+    loginfo = models.CharField(max_length=100)
