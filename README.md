@@ -6,3 +6,4 @@ or see here：https://pan.baidu.com/s/1dIp_auyfOdWAgGb-tBGSZw
 
 ![img](https://github.com/kenibote/ONTRC/blob/master/wiki/123.gif)
 ![img](https://github.com/kenibote/ONTRC/blob/master/wiki/4.gif)
+![img](https://github.com/kenibote/ONTRC/blob/master/wiki/introduction.jpg)
